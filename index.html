@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山平遡羅 - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+    <script src="script.js" defer></script>
+
+    <header>
+        <h1>山平 遡羅</h1>
+        <p>ゲーム開発 ＆ 謎解きイベント制作</p>
+    </header>
+
+    <section id="profile">
+        <h2>プロフィール</h2>
+        <div class="profile-box">
+            <p>ゲームを作ったり、謎解きイベントを開催して生きています。</p>
+            <p><strong>名前：</strong>山平 遡羅（やまひら そら）</p>
+            <p><strong>生年月日：</strong>2006/10/04</p>
+            <p><strong>所属：</strong>京都コンピュータ学院 京都駅前校<br>
+                デジタルゲーム学系 ゲーム学科 <span id="grade-display">2回生（2029年卒業予定）</span></p>
+
+            <h3>リンク</h3>
+            <ul class="profile-links">
+                <li><a href="https://twitter.com/Yamasora2614" target="_blank" class="profile-btn">
+                    <strong>𝕏 (Twitter)</strong> @Yamasora2614
+                </a></li>
+                <li><a href="https://www.facebook.com/Yamasora2614" target="_blank" class="profile-btn">
+                    <strong>Facebook</strong> Yamasora2614
+                </a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="works">
+        <h2>製作作品</h2>
+
+        <a href="https://unityroom.com/games/gimission" target="_blank" class="work-card">
+            <div class="work-card-img">
+                <img src="img/gimissionicon.png" alt="GIMISSION">
+            </div>
+            <div class="work-card-content">
+                <h3>GIMISSION</h3>
+                <div class="tag">ジャンル：カジュアル | 媒体：WebGL</div>
+                <p>ミニゲームしながらタイマーをぎりぎりで止める、マルチタスクでチキンレースなカジュアルゲーム。</p>
+            </div>
+            <div class="work-card-action">
+                <span class="action-text">作品を見る</span>
+                <span class="action-arrow">→</span>
+            </div>
+        </a>
+
+        <div class="work-card ended">
+            <div class="work-card-img">
+                <img src="img/november.png" alt="11月祭謎解き課題">
+            </div>
+            <div class="work-card-content">
+                <h3>11月祭謎解き課題</h3>
+                <div class="tag">ジャンル：周遊型謎解きゲーム | 媒体：学祭イベント</div>
+                <p>学院内を探索して謎を解く、2025年11月祭で開催したイベント。</p>
+            </div>
+            <div class="work-card-action">
+                <span class="action-text">開催終了</span>
+            </div>
+        </div>
+
+        <a href="https://araradesu.github.io/framing/" target="_blank" class="work-card">
+            <div class="work-card-img">
+                <img src="img/framing.png" alt="framing">
+            </div>
+            <div class="work-card-content">
+                <h3>framing</h3>
+                <div class="tag">ジャンル：謎解き | 媒体：Web</div>
+                <p>やってくる５問の謎を解き明かす。</p>
+            </div>
+            <div class="work-card-action">
+                <span class="action-text">作品を見る</span>
+                <span class="action-arrow">→</span>
+            </div>
+        </a>
+
+        <a href="https://araradesu.github.io/CreazySignup/" target="_blank" class="work-card">
+            <div class="work-card-img">
+                <img src="img/crazysignup.png" alt="CrazySignUp">
+            </div>
+            <div class="work-card-content">
+                <h3>CrazySignUp</h3>
+                <div class="tag">ジャンル：謎解きアクション | 媒体：Web</div>
+                <p>とあるサービスサイトに会員登録するまでのタイムアタック。意地悪すぎる手順を踏む必要がある。</p>
+            </div>
+            <div class="work-card-action">
+                <span class="action-text">作品を見る</span>
+                <span class="action-arrow">→</span>
+            </div>
+        </a>
+    </section>
+
+    <!-- 謎解き入力エリア -->
+    <section id="puzzle-section">
+        <div class="puzzle-input-wrapper">
+            <input type="text" id="puzzle-input" autocomplete="off" placeholder="" />
+        </div>
+        <button id="puzzle-submit">Enter</button>
+    </section>
+
+    <!-- 正解用オーバーレイ（モーダル） -->
+    <div id="puzzle-overlay">
+        <div class="puzzle-modal">
+            <h2>隠された謎に正解した！</h2>
+            <div class="puzzle-explanation">
+                <p><strong>【解説】</strong></p>
+                <p>各色の英単語の「図形の頂点の数」文字目を拾うと…</p>
+                <p>
+                    <span style="color: #cda800;">yell<strong>O</strong>w</span>（五角形 = 5文字目）<br>
+                    <span style="color: #8c3cc8;">pur<strong>P</strong>le</span>（四角形 = 4文字目）<br>
+                    <span style="color: #2878dc;">blu<strong>E</strong></span>（四角形 = 4文字目）<br>
+                    <span style="color: #32b450;">gree<strong>N</strong></span>（五角形 = 5文字目）
+                </p>
+                <p>答えは「<strong>OPEN</strong>」！</p>
+            </div>
+            <button id="puzzle-close">閉じる</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
