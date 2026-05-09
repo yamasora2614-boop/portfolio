@@ -376,26 +376,22 @@ async function handleCorrectSequence(word) {
             </div>
         `;
         
-        // 高さを計算するために一旦見えない状態で追加
-        secretWork.style.visibility = 'hidden';
-        secretWork.style.position = 'absolute';
-        secretWork.style.display = 'flex';
+        // 初期状態として追加（高さ0で追加して自然な高さを測定する）
+        secretWork.style.overflow = 'hidden';
+        secretWork.style.height = '0px';
+        secretWork.style.marginBottom = '0px';
+        secretWork.style.opacity = '0';
+        secretWork.style.transition = 'height 1.5s cubic-bezier(0.4, 0, 0.2, 1), margin-bottom 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease-in-out 0.5s';
+        
         const resetContainer = document.getElementById('portfolio-reset-container');
         if (resetContainer) {
             worksSection.insertBefore(secretWork, resetContainer);
         } else {
             worksSection.appendChild(secretWork);
         }
-        const targetHeight = secretWork.offsetHeight;
         
-        // アニメーションの初期状態にリセット
-        secretWork.style.position = '';
-        secretWork.style.visibility = '';
-        secretWork.style.overflow = 'hidden';
-        secretWork.style.height = '0px';
-        secretWork.style.marginBottom = '0px';
-        secretWork.style.opacity = '0';
-        secretWork.style.transition = 'height 1.5s cubic-bezier(0.4, 0, 0.2, 1), margin-bottom 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease-in-out 0.5s';
+        // 追加後に本来の高さを測定
+        const targetHeight = secretWork.scrollHeight;
         
         await delay(50);
         
@@ -407,8 +403,8 @@ async function handleCorrectSequence(word) {
         // 空間が開ききるのを待つ
         await delay(1500);
         
-        // 展開しきってから、ずれないようにスクロール
-        secretWork.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // 展開しきってから、ゲージ部分を中心にスクロール
+        document.getElementById('portfolio-action').scrollIntoView({ behavior: 'smooth', block: 'center' });
         
         // 光の演出を見せる
         await delay(800);
