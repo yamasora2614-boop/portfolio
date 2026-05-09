@@ -296,6 +296,7 @@ async function checkPuzzle() {
 
     if (TARGET_ANSWERS.includes(val)) {
         solvedWords.add(val);
+        localStorage.setItem('portfolio_puzzle_progress', JSON.stringify(Array.from(solvedWords)));
         input.disabled = true;
         submitBtn.disabled = true;
         await handleCorrectSequence(val);
@@ -491,7 +492,6 @@ if (closeBtn && overlay) {
             inputField.disabled = false;
             submitBtn.disabled = false;
             inputField.value = '';
-            inputField.focus();
         } else {
             // 3問クリア後は入力欄を完全無効化
             inputField.value = 'CLEARED';
@@ -499,3 +499,101 @@ if (closeBtn && overlay) {
         }
     });
 }
+
+// --- 進捗の保存と復元 ---
+function initPuzzleProgress() {
+    const saved = localStorage.getItem('portfolio_puzzle_progress');
+    if (saved) {
+        try {
+            const words = JSON.parse(saved);
+            words.forEach(w => {
+                if (TARGET_ANSWERS.includes(w)) {
+                    solvedWords.add(w);
+                }
+            });
+        } catch (e) {}
+    }
+
+    if (solvedWords.size > 0) {
+        restorePuzzleUIState();
+    }
+}
+
+function restorePuzzleUIState() {
+    const worksSection = document.getElementById('works');
+    const count = solvedWords.size;
+    
+    const secretWork = document.createElement('a');
+    secretWork.href = "javascript:void(0)";
+    secretWork.className = "work-card highlight-card"; // アニメーションなしの通常状態
+    secretWork.id = "portfolio-secret-work";
+    
+    let progressWidth = '0%';
+    let actionText = '';
+    let actionHTML = '';
+    let descText = '隠された謎を解き明かせ';
+    
+    if (count === 1) {
+        progressWidth = '33.3%';
+        actionText = '1/3';
+    } else if (count === 2) {
+        progressWidth = '66.6%';
+        actionText = '2/3';
+    } else if (count === 3) {
+        progressWidth = '100%';
+        descText = 'ポートフォリオの中に隠された謎を解き明かす。<br>全問正解、おめでとうございます！';
+    }
+
+    if (count < 3) {
+        actionHTML = `
+            <div class="work-card-action progress-mode" id="portfolio-action">
+                <div class="progress-bg" id="portfolio-progress" style="width: ${progressWidth}; transition: none;"></div>
+                <span class="action-text progress-text" id="portfolio-action-text">${actionText}</span>
+            </div>
+        `;
+        secretWork.classList.add('progress-locked');
+    } else {
+        actionHTML = `
+            <div class="work-card-action" id="portfolio-action">
+                <span class="action-text">解説を見る</span>
+                <span class="action-arrow">→</span>
+            </div>
+        `;
+        secretWork.classList.remove('progress-locked');
+    }
+
+    secretWork.innerHTML = `
+        <div class="work-card-img">
+            <img src="img/portfolio.png" alt="Portfolio">
+        </div>
+        <div class="work-card-content">
+            <h3>Portfolio</h3>
+            <div class="tag">ジャンル：謎解き | 媒体：Web</div>
+            <p>${descText}</p>
+        </div>
+        ${actionHTML}
+    `;
+    
+    worksSection.appendChild(secretWork);
+
+    if (count === 3) {
+        secretWork.addEventListener('click', (e) => {
+            e.preventDefault();
+            showExplanationModal('all');
+        });
+        
+        const inputF = document.getElementById('puzzle-input');
+        const submitB = document.getElementById('puzzle-submit');
+        if (inputF) {
+            inputF.disabled = true;
+            inputF.value = 'CLEARED';
+            inputF.parentElement.classList.add('solved');
+        }
+        if (submitB) {
+            submitB.disabled = true;
+        }
+    }
+}
+
+// 初期化実行
+initPuzzleProgress();
