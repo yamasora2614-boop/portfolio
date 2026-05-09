@@ -6,11 +6,31 @@ let particles = [];
 let mouse = { x: null, y: null, radius: 150 };
 
 function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-    initParticles();
+    const newWidth = window.innerWidth;
+    const newHeight = window.innerHeight;
+    const dpr = window.devicePixelRatio || 1;
+
+    // 初回読み込み、または画面の幅が変わった時（縦横の回転など）のみ図形を再生成する
+    // スマホのスクロールで高さだけが変わる時は再生成しない（背景が高速で飛ぶ・リセットされるバグの防止）
+    const shouldInitParticles = (width !== newWidth);
+
+    width = newWidth;
+    height = newHeight;
+    
+    // 高解像度ディスプレイ（スマホ等）で画質が荒くなるのを防ぐ
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    
+    // canvas要素のCSSサイズを固定し、勝手に縦に引き伸ばされるのを防ぐ
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    
+    // 描画スケールをピクセル比に合わせる
+    ctx.scale(dpr, dpr);
+
+    if (shouldInitParticles) {
+        initParticles();
+    }
 }
 
 window.addEventListener('resize', resize);
