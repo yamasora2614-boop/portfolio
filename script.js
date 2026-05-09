@@ -380,13 +380,13 @@ async function handleCorrectSequence(word) {
         
         const actionArea = document.getElementById('portfolio-action');
         actionArea.classList.add('animating');
-        secretWork.classList.add('bounce-anim');
+        secretWork.classList.add('elevated-anim');
         
         document.getElementById('portfolio-progress').style.width = '33.3%';
         await delay(2000); // ゲージ上昇を2秒待つ
         
         actionArea.classList.remove('animating');
-        secretWork.classList.remove('bounce-anim');
+        secretWork.classList.remove('elevated-anim');
         await delay(300);
         
     } else {
@@ -402,24 +402,24 @@ async function handleCorrectSequence(word) {
         if (count === 2) {
             actionText.innerText = "2/3";
             actionArea.classList.add('animating');
-            secretWork.classList.add('bounce-anim');
+            secretWork.classList.add('elevated-anim');
             
             progress.style.width = '66.6%';
             await delay(2000);
             
             actionArea.classList.remove('animating');
-            secretWork.classList.remove('bounce-anim');
+            secretWork.classList.remove('elevated-anim');
             await delay(300);
         } else if (count === 3) {
             actionText.innerText = "3/3";
             actionArea.classList.add('animating');
-            secretWork.classList.add('bounce-anim');
+            secretWork.classList.add('elevated-anim');
             
             progress.style.width = '100%';
             await delay(2000);
             
             actionArea.classList.remove('animating');
-            secretWork.classList.remove('bounce-anim');
+            secretWork.classList.remove('elevated-anim');
             
             const congrats = document.getElementById('congratulations-text');
             congrats.classList.add('visible');

@@ -633,13 +633,10 @@ a.work-card:hover .action-arrow {
     font-weight: 800;
 }
 
-/* バウンスアニメーション */
-.bounce-anim {
-    animation: card-bounce-loop 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
-}
-@keyframes card-bounce-loop {
-    0%, 100% { transform: scale(1); box-shadow: 0 10px 40px rgba(0,0,0,0.04); }
-    50% { transform: scale(1.03); box-shadow: 0 25px 50px rgba(244, 128, 36, 0.15); }
+/* ゲージ上昇中の浮き上がり演出（はねるのではなく、前に飛び出したまま維持） */
+.work-card.elevated-anim {
+    transform: scale(1.04);
+    box-shadow: 0 25px 50px rgba(244, 128, 36, 0.15);
 }
 
 /* Congratulationsテキスト */
