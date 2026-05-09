@@ -296,7 +296,6 @@ async function checkPuzzle() {
 
     if (TARGET_ANSWERS.includes(val)) {
         solvedWords.add(val);
-        input.value = '';
         input.disabled = true;
         submitBtn.disabled = true;
         await handleCorrectSequence(val);
@@ -423,6 +422,12 @@ async function handleCorrectSequence(word) {
             
             const congrats = document.getElementById('congratulations-text');
             congrats.classList.add('visible');
+            
+            // 説明文を変更
+            const desc = secretWork.querySelector('.work-card-content p');
+            if (desc) {
+                desc.innerHTML = 'ポートフォリオの中に隠された謎を解き明かす。<br>全問正解、おめでとうございます！';
+            }
             
             await delay(2000);
             congrats.classList.remove('visible');

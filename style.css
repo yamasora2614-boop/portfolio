@@ -617,7 +617,7 @@ a.work-card:hover .action-arrow {
     left: 0;
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, rgba(244, 128, 36, 0.2), rgba(244, 128, 36, 0.5));
+    background: linear-gradient(90deg, rgba(17, 17, 17, 0.05), rgba(17, 17, 17, 0.2));
     transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 0;
 }
@@ -628,7 +628,7 @@ a.work-card:hover .action-arrow {
 }
 .work-card-action.progress-mode.animating .progress-text {
     font-size: 1.8em;
-    color: #f48024;
+    color: #111;
     text-shadow: 0 2px 10px rgba(255,255,255,0.8);
     font-weight: 800;
 }
@@ -636,7 +636,7 @@ a.work-card:hover .action-arrow {
 /* ゲージ上昇中の浮き上がり演出（はねるのではなく、前に飛び出したまま維持） */
 .work-card.elevated-anim {
     transform: scale(1.04);
-    box-shadow: 0 25px 50px rgba(244, 128, 36, 0.15);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
 }
 
 /* Congratulationsテキスト */
@@ -692,6 +692,5 @@ a.work-card.progress-locked:hover .work-card-action {
     z-index: 10;
 }
 .work-card.placeholder-mode > * {
-    opacity: 0.05; /* 中のコンテンツは展開中はほぼ見えなくする */
     pointer-events: none;
 }
