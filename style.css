@@ -60,23 +60,26 @@ header p {
 }
 
 h2 {
+    text-align: center;
     font-size: 1.8em;
     font-weight: 600;
     color: #111;
     margin-top: 60px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     position: relative;
-    padding-left: 18px;
+    padding-bottom: 15px;
+    letter-spacing: 0.1em;
 }
 
-/* 左側のアクセントライン */
-h2::before {
+/* 中央下部のアクセントライン */
+h2::after {
     content: '';
     position: absolute;
-    left: 0;
-    top: 10%;
-    height: 80%;
-    width: 4px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
     background-color: #111;
     border-radius: 2px;
 }
@@ -470,9 +473,8 @@ a.work-card:hover .action-arrow {
 .puzzle-modal h2 {
     margin-top: 0;
     color: #111;
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #eee;
+    font-size: 1.6em;
+    margin-bottom: 25px;
     padding-bottom: 15px;
 }
 
