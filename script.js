@@ -256,6 +256,25 @@ const explanations = {
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
+// スクロール無効化用の関数
+function preventDefaultScroll(e) {
+    e.preventDefault();
+}
+
+function setScrollLock(locked) {
+    const blocker = document.getElementById('scroll-blocker');
+    if (!blocker) return;
+    if (locked) {
+        blocker.style.display = 'block';
+        blocker.addEventListener('wheel', preventDefaultScroll, { passive: false });
+        blocker.addEventListener('touchmove', preventDefaultScroll, { passive: false });
+    } else {
+        blocker.style.display = 'none';
+        blocker.removeEventListener('wheel', preventDefaultScroll);
+        blocker.removeEventListener('touchmove', preventDefaultScroll);
+    }
+}
+
 async function checkPuzzle() {
     const input = document.getElementById('puzzle-input');
     const submitBtn = document.getElementById('puzzle-submit');
@@ -293,6 +312,9 @@ async function handleCorrectSequence(word) {
     const worksSection = document.getElementById('works');
     const backdrop = document.getElementById('dark-backdrop');
     const count = solvedWords.size;
+    
+    // アニメーション中はスクロールなどの操作を無効化
+    setScrollLock(true);
     
     backdrop.classList.add('visible');
     
@@ -339,11 +361,14 @@ async function handleCorrectSequence(word) {
         secretWork.style.marginBottom = '40px';
         secretWork.style.opacity = '1';
         
-        // 同時にスクロールして見えるようにする
+        // 空間が開ききるのを待つ
+        await delay(1000);
+        
+        // 展開しきってから、ずれないようにスクロール
         secretWork.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
-        // 展開完了と光の演出を見せる
-        await delay(1200);
+        // 光の演出を見せる
+        await delay(800);
         
         // プレースホルダー状態を解除して中身を見せる
         secretWork.classList.remove('placeholder-mode');
@@ -419,6 +444,9 @@ function showExplanationModal(type) {
     document.getElementById('dark-backdrop').classList.remove('visible');
     const secretWork = document.getElementById('portfolio-secret-work');
     if(secretWork) secretWork.classList.remove('highlight-card');
+    
+    // モーダル表示時にアニメーションロックを解除（モーダル内はスクロール可能に）
+    setScrollLock(false);
     
     overlay.classList.add('visible');
 }
