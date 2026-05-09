@@ -605,31 +605,6 @@ a.work-card:hover .action-arrow {
     z-index: 600 !important; /* 暗転より前面に */
 }
 
-/* プレースホルダーの光る演出 */
-.placeholder-card {
-    margin-bottom: 40px;
-    height: 328px; /* カードとほぼ同じ高さ */
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    border: 1px dashed rgba(255, 255, 255, 0.5);
-    position: relative;
-    overflow: hidden;
-    z-index: 600;
-}
-.placeholder-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent);
-    animation: glow-sweep 1.5s ease-in-out infinite;
-}
-@keyframes glow-sweep {
-    0% { left: -100%; }
-    100% { left: 200%; }
-}
 
 /* プログレスバー */
 .work-card-action.progress-mode {
@@ -693,4 +668,27 @@ a.work-card.progress-locked:hover {
 }
 a.work-card.progress-locked:hover .work-card-img img {
     transform: none;
+}
+a.work-card.progress-locked:hover .work-card-action::before {
+    background-position: 100% 0; /* 黒の塗りつぶしアニメーションを停止 */
+}
+a.work-card.progress-locked:hover .work-card-action {
+    color: #888; /* テキスト色の変化も停止 */
+}
+
+/* 展開中のプレースホルダー光演出 */
+.work-card.placeholder-mode::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent);
+    animation: glow-sweep 1.2s ease-in-out infinite;
+    z-index: 10;
+}
+.work-card.placeholder-mode > * {
+    opacity: 0.05; /* 中のコンテンツは展開中はほぼ見えなくする */
+    pointer-events: none;
 }

@@ -297,17 +297,9 @@ async function handleCorrectSequence(word) {
     backdrop.classList.add('visible');
     
     if (count === 1) {
-        const placeholder = document.createElement('div');
-        placeholder.className = 'placeholder-card highlight-card';
-        placeholder.id = 'portfolio-placeholder';
-        worksSection.appendChild(placeholder);
-        
-        placeholder.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        await delay(1500); // 光るアニメーションを見せる
-        
         const secretWork = document.createElement('a');
         secretWork.href = "javascript:void(0)";
-        secretWork.className = "work-card highlight-card progress-locked";
+        secretWork.className = "work-card highlight-card progress-locked placeholder-mode";
         secretWork.id = "portfolio-secret-work";
         secretWork.innerHTML = `
             <div class="work-card-img">
@@ -323,9 +315,43 @@ async function handleCorrectSequence(word) {
                 <span class="action-text progress-text" id="portfolio-action-text">1/3</span>
             </div>
         `;
-        worksSection.replaceChild(secretWork, placeholder);
         
-        await delay(100);
+        // 高さを計算するために一旦見えない状態で追加
+        secretWork.style.visibility = 'hidden';
+        secretWork.style.position = 'absolute';
+        secretWork.style.display = 'flex';
+        worksSection.appendChild(secretWork);
+        const targetHeight = secretWork.offsetHeight;
+        
+        // アニメーションの初期状態にリセット
+        secretWork.style.position = '';
+        secretWork.style.visibility = '';
+        secretWork.style.overflow = 'hidden';
+        secretWork.style.height = '0px';
+        secretWork.style.marginBottom = '0px';
+        secretWork.style.opacity = '0';
+        secretWork.style.transition = 'height 1s cubic-bezier(0.2, 0.8, 0.2, 1), margin-bottom 1s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease-in-out 0.3s';
+        
+        await delay(50);
+        
+        // スムーズに空間を開けながらフェードイン
+        secretWork.style.height = targetHeight + 'px';
+        secretWork.style.marginBottom = '40px';
+        secretWork.style.opacity = '1';
+        
+        // 同時にスクロールして見えるようにする
+        secretWork.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // 展開完了と光の演出を見せる
+        await delay(1200);
+        
+        // プレースホルダー状態を解除して中身を見せる
+        secretWork.classList.remove('placeholder-mode');
+        // 高さをautoに戻し、hover用の通常のトランジションに戻す
+        secretWork.style.height = 'auto';
+        secretWork.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+        
+        await delay(200);
         document.getElementById('portfolio-progress').style.width = '33.3%';
         await delay(1000);
         
