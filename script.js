@@ -342,7 +342,12 @@ async function handleCorrectSequence(word) {
         secretWork.style.visibility = 'hidden';
         secretWork.style.position = 'absolute';
         secretWork.style.display = 'flex';
-        worksSection.appendChild(secretWork);
+        const resetContainer = document.getElementById('portfolio-reset-container');
+        if (resetContainer) {
+            worksSection.insertBefore(secretWork, resetContainer);
+        } else {
+            worksSection.appendChild(secretWork);
+        }
         const targetHeight = secretWork.offsetHeight;
         
         // アニメーションの初期状態にリセット
@@ -387,6 +392,14 @@ async function handleCorrectSequence(word) {
         
         actionArea.classList.remove('animating');
         secretWork.classList.remove('elevated-anim');
+        
+        // リセットボタンを表示
+        if (resetContainer) {
+            resetContainer.style.display = 'block';
+            resetContainer.style.opacity = '0';
+            resetContainer.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => { resetContainer.style.opacity = '1'; }, 50);
+        }
         await delay(300);
         
     } else {
@@ -573,8 +586,14 @@ function restorePuzzleUIState() {
         </div>
         ${actionHTML}
     `;
-    
-    worksSection.appendChild(secretWork);
+    const resetContainer = document.getElementById('portfolio-reset-container');
+    if (resetContainer) {
+        worksSection.insertBefore(secretWork, resetContainer);
+        resetContainer.style.display = 'block';
+        resetContainer.style.opacity = '1';
+    } else {
+        worksSection.appendChild(secretWork);
+    }
 
     if (count === 3) {
         secretWork.addEventListener('click', (e) => {
@@ -593,6 +612,54 @@ function restorePuzzleUIState() {
             submitB.disabled = true;
         }
     }
+}
+
+    });
+}
+
+// リセット機能の設定
+const resetBtn = document.getElementById('portfolio-reset-btn');
+const resetModal = document.getElementById('reset-modal');
+const resetConfirm = document.getElementById('reset-confirm');
+const resetCancel = document.getElementById('reset-cancel');
+
+if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+        resetModal.classList.add('visible');
+    });
+}
+if (resetCancel) {
+    resetCancel.addEventListener('click', () => {
+        resetModal.classList.remove('visible');
+    });
+}
+if (resetConfirm) {
+    resetConfirm.addEventListener('click', () => {
+        localStorage.removeItem('portfolio_puzzle_progress');
+        solvedWords.clear();
+        
+        resetModal.classList.remove('visible');
+        
+        const secretWork = document.getElementById('portfolio-secret-work');
+        if (secretWork) secretWork.remove();
+        
+        const resetContainer = document.getElementById('portfolio-reset-container');
+        if (resetContainer) {
+            resetContainer.style.display = 'none';
+            resetContainer.style.opacity = '0';
+        }
+        
+        const inputF = document.getElementById('puzzle-input');
+        const submitB = document.getElementById('puzzle-submit');
+        if (inputF) {
+            inputF.disabled = false;
+            inputF.value = '';
+            inputF.parentElement.classList.remove('solved');
+        }
+        if (submitB) {
+            submitB.disabled = false;
+        }
+    });
 }
 
 // 初期化実行

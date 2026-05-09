@@ -694,3 +694,88 @@ a.work-card.progress-locked:hover .work-card-action {
 .work-card.placeholder-mode > * {
     pointer-events: none;
 }
+
+/* リセットボタン関連 */
+#portfolio-reset-container {
+    text-align: right;
+    margin-top: -10px;
+}
+#portfolio-reset-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-size: 0.85em;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(231,76,60,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s;
+}
+#portfolio-reset-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(231,76,60,0.4);
+    background: #c0392b;
+}
+
+/* リセット確認モーダル */
+#reset-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+#reset-modal.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+.reset-modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    transform: translateY(20px);
+    transition: transform 0.3s cubic-bezier(0.2,0.8,0.2,1);
+    color: #111;
+}
+#reset-modal.visible .reset-modal-content {
+    transform: translateY(0);
+}
+.reset-modal-actions {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.reset-modal-btn {
+    border: none;
+    padding: 10px 30px;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.2s;
+}
+.reset-modal-btn.confirm {
+    background: #e74c3c;
+    color: white;
+}
+.reset-modal-btn.confirm:hover {
+    background: #c0392b;
+    transform: translateY(-1px);
+}
+.reset-modal-btn.cancel {
+    background: #f1f1f1;
+    color: #333;
+}
+.reset-modal-btn.cancel:hover {
+    background: #e1e1e1;
+    transform: translateY(-1px);
+}

@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>山平遡羅 - Portfolio</title>
-    <link rel="stylesheet" href="style.css?v=2.4">
+    <link rel="stylesheet" href="style.css?v=2.5">
 </head>
 
 <body>
 
     <canvas id="bg-canvas"></canvas>
-    <script src="script.js?v=2.4" defer></script>
+    <script src="script.js?v=2.5" defer></script>
 
     <header>
         <h1>山平 遡羅</h1>
@@ -100,6 +100,11 @@
                 <span class="action-arrow">→</span>
             </div>
         </a>
+        
+        <!-- 謎解きによるPortfolioカード挿入箇所、およびリセットボタン -->
+        <div id="portfolio-reset-container" style="display: none; opacity: 0;">
+            <button id="portfolio-reset-btn">リセット</button>
+        </div>
     </section>
 
     <!-- 謎解き入力エリア -->
@@ -120,6 +125,18 @@
 
     <!-- 演出用要素 -->
     <div id="scroll-blocker" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999;"></div>
+    
+    <!-- リセット確認モーダル -->
+    <div id="reset-modal">
+        <div class="reset-modal-content">
+            <p>ここまでの進捗をリセットしますか？</p>
+            <div class="reset-modal-actions">
+                <button class="reset-modal-btn confirm" id="reset-confirm">はい</button>
+                <button class="reset-modal-btn cancel" id="reset-cancel">いいえ</button>
+            </div>
+        </div>
+    </div>
+    
     <div id="dark-backdrop"></div>
     <div id="congratulations-text">Congratulations!</div>
 
