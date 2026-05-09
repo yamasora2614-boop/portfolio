@@ -81,6 +81,9 @@ h2::after {
     width: 40px;
     height: 4px;
     background-color: #111;
+    border-radius: 2px;
+}
+
 /* Glassmorphism（すりガラス）ベースのカードスタイル */
 .profile-box, .work-card {
     background: rgba(255, 255, 255, 0.35); /* 透明度を上げる（より透けさせる） */
