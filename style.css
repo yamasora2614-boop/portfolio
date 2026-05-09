@@ -701,21 +701,21 @@ a.work-card.progress-locked:hover .work-card-action {
     margin-top: -10px;
 }
 #portfolio-reset-btn {
-    background: #e74c3c;
+    background: #c0392b;
     color: white;
     border: none;
     padding: 6px 16px;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 0.85em;
     cursor: pointer;
     font-weight: 600;
-    box-shadow: 0 4px 12px rgba(231,76,60,0.3);
+    box-shadow: 0 4px 12px rgba(192,57,43,0.3);
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s;
 }
 #portfolio-reset-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(231,76,60,0.4);
-    background: #c0392b;
+    box-shadow: 0 6px 16px rgba(192,57,43,0.4);
+    background: #96281b;
 }
 
 /* リセット確認モーダル */
@@ -757,18 +757,18 @@ a.work-card.progress-locked:hover .work-card-action {
 .reset-modal-btn {
     border: none;
     padding: 10px 30px;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1em;
     cursor: pointer;
     font-weight: 600;
     transition: background 0.2s, transform 0.2s;
 }
 .reset-modal-btn.confirm {
-    background: #e74c3c;
+    background: #c0392b;
     color: white;
 }
 .reset-modal-btn.confirm:hover {
-    background: #c0392b;
+    background: #96281b;
     transform: translateY(-1px);
 }
 .reset-modal-btn.cancel {
