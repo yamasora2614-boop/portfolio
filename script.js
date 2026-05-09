@@ -363,12 +363,12 @@ async function handleCorrectSequence(word) {
         secretWork.id = "portfolio-secret-work";
         secretWork.innerHTML = `
             <div class="work-card-img">
-                <img src="img/portfolio.png" alt="Portfolio">
+                <img src="${isEn ? '../' : ''}img/portfolio.png" alt="Portfolio">
             </div>
             <div class="work-card-content">
                 <h3>Portfolio</h3>
-                <div class="tag">ジャンル：謎解き | 媒体：Web</div>
-                <p>隠された謎を解き明かせ</p>
+                <div class="tag">${isEn ? 'Genre: Riddle | Platform: Web' : 'ジャンル：謎解き | 媒体：Web'}</div>
+                <p>${isEn ? 'Uncover the hidden riddles.' : '隠された謎を解き明かせ'}</p>
             </div>
             <div class="work-card-action progress-mode" id="portfolio-action">
                 <div class="progress-bg" id="portfolio-progress"></div>
