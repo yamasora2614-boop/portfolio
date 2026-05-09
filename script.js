@@ -362,10 +362,10 @@ async function handleCorrectSequence(word) {
             
             const actionArea = document.getElementById('portfolio-action');
             actionArea.classList.remove('progress-mode');
-            actionArea.innerHTML = \`
+            actionArea.innerHTML = `
                 <span class="action-text">解説を見る</span>
                 <span class="action-arrow">→</span>
-            \`;
+            `;
             
             secretWork.addEventListener('click', (e) => {
                 e.preventDefault();
