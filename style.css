@@ -498,7 +498,7 @@ a.work-card:hover .action-arrow {
 
 .puzzle-explanation p:last-child {
     margin-bottom: 0;
-    text-align: center;
+    text-align: left;
     font-size: 1.2em;
     margin-top: 15px;
 }
@@ -560,14 +560,14 @@ a.work-card:hover .action-arrow {
     font-size: 1.1em;
 }
 .en-instruction {
-    font-size: 0.85em;
+    font-size: 0.95em;
     color: #666;
     letter-spacing: 0.08em;
 }
-.color-yellow { color: #cda800; font-weight: bold; }
-.color-purple { color: #8c3cc8; font-weight: bold; }
-.color-blue { color: #2878dc; font-weight: bold; }
-.color-green { color: #32b450; font-weight: bold; }
+.color-yellow { color: #cda800; }
+.color-purple { color: #8c3cc8; }
+.color-blue { color: #2878dc; }
+.color-green { color: #32b450; }
 
 .hidden-error {
     color: #e63946;
@@ -705,7 +705,7 @@ a.work-card.progress-locked:hover .work-card-action {
     color: white;
     border: none;
     padding: 6px 16px;
-    border-radius: 8px;
+    border-radius: 30px;
     font-size: 0.85em;
     cursor: pointer;
     font-weight: 600;
@@ -757,7 +757,7 @@ a.work-card.progress-locked:hover .work-card-action {
 .reset-modal-btn {
     border: none;
     padding: 10px 30px;
-    border-radius: 8px;
+    border-radius: 30px;
     font-size: 1em;
     cursor: pointer;
     font-weight: 600;

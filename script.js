@@ -235,7 +235,7 @@ const explanations = {
     rule: `
         <p><strong>【１問目　Lv.★☆☆】</strong></p>
         <p>解答欄の上に書かれた問題文<br>
-        「Answ<span class="color-green">e</span><span class="color-yellow">r</span> in fo<span class="color-purple">u</span><span class="color-yellow">r</span> <span class="color-blue">l</span><span class="color-green">e</span>tt<span class="color-green">e</span><span class="color-yellow">r</span>s.」の色のついた文字を拾う。</p>
+        「Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span><span class="color-yellow"><strong>r</strong></span> <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tt<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span>s.」の色のついた文字を拾う。</p>
         <p>答えは「<strong>RULE</strong>」。</p>
     `,
     text: `
@@ -246,10 +246,10 @@ const explanations = {
         <p><strong>【３問目　Lv.★★★】</strong></p>
         <p>各色の「図形の頂点の数」文字目を拾う。</p>
         <p>
-            <span class="color-yellow">YELLOW</span>（五角形→５文字目）<br>
-            <span class="color-purple">PURPLE</span>（四角形→４文字目）<br>
-            <span class="color-blue">BLUE</span>（四角形→４文字目）<br>
-            <span class="color-green">GREEN</span>（五角形→５文字目）
+            <span class="color-yellow">YELL<strong>O</strong>W</span>（五角形→５文字目）<br>
+            <span class="color-purple">PUR<strong>P</strong>LE</span>（四角形→４文字目）<br>
+            <span class="color-blue">BLU<strong>E</strong></span>（四角形→４文字目）<br>
+            <span class="color-green">GREE<strong>N</strong></span>（五角形→５文字目）
         </p>
         <p>答えは「<strong>OPEN</strong>」。</p>
     `
