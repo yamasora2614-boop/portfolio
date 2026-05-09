@@ -543,3 +543,138 @@ a.work-card:hover .action-arrow {
     box-shadow: none;
     transform: none;
 }
+
+/* --- 謎解き複数回答・演出用スタイル --- */
+.puzzle-instructions {
+    margin-bottom: 25px;
+    font-family: 'Outfit', 'Zen Kaku Gothic New', sans-serif;
+}
+.jp-instruction {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #111;
+    font-size: 1.1em;
+}
+.en-instruction {
+    font-size: 0.85em;
+    color: #666;
+    letter-spacing: 0.08em;
+}
+.color-yellow { color: #cda800; font-weight: bold; }
+.color-purple { color: #8c3cc8; font-weight: bold; }
+.color-blue { color: #2878dc; font-weight: bold; }
+.color-green { color: #32b450; font-weight: bold; }
+
+.hidden-error {
+    color: #e63946;
+    font-size: 0.9em;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+.hidden-error.visible {
+    opacity: 1;
+}
+
+#dark-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 500;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+#dark-backdrop.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.highlight-card {
+    position: relative;
+    z-index: 600 !important; /* 暗転より前面に */
+}
+
+/* プレースホルダーの光る演出 */
+.placeholder-card {
+    margin-bottom: 40px;
+    height: 328px; /* カードとほぼ同じ高さ */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    border: 1px dashed rgba(255, 255, 255, 0.5);
+    position: relative;
+    overflow: hidden;
+    z-index: 600;
+}
+.placeholder-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent);
+    animation: glow-sweep 1.5s ease-in-out infinite;
+}
+@keyframes glow-sweep {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+/* プログレスバー */
+.work-card-action.progress-mode {
+    background: rgba(17, 17, 17, 0.03);
+    color: #888;
+}
+.progress-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, rgba(244, 128, 36, 0.2), rgba(244, 128, 36, 0.5));
+    transition: width 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 0;
+}
+.progress-text {
+    position: relative;
+    z-index: 1;
+}
+
+/* バウンスアニメーション */
+.bounce-anim {
+    animation: card-bounce 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes card-bounce {
+    0% { transform: scale(1); box-shadow: 0 10px 40px rgba(0,0,0,0.04); }
+    50% { transform: scale(1.05); box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
+    100% { transform: scale(1); box-shadow: 0 10px 40px rgba(0,0,0,0.04); }
+}
+
+/* Congratulationsテキスト */
+#congratulations-text {
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -20px);
+    font-family: 'Outfit', sans-serif;
+    font-size: 3.5em;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 4px 20px rgba(244, 128, 36, 0.8);
+    z-index: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    letter-spacing: 0.05em;
+}
+#congratulations-text.visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}

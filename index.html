@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>山平遡羅 - Portfolio</title>
-    <link rel="stylesheet" href="style.css?v=1.5">
+    <link rel="stylesheet" href="style.css?v=1.6">
 </head>
 
 <body>
 
     <canvas id="bg-canvas"></canvas>
-    <script src="script.js?v=1.5" defer></script>
+    <script src="script.js?v=1.6" defer></script>
 
     <header>
         <h1>山平 遡羅</h1>
@@ -105,11 +105,22 @@
     <!-- 謎解き入力エリア -->
     <section id="puzzle-section">
         <h2>？？？</h2>
+        <div class="puzzle-instructions">
+            <p class="jp-instruction">英語四文字で答えよ</p>
+            <p class="en-instruction">
+                Answ<span class="color-green">e</span><span class="color-yellow">r</span> in fo<span class="color-purple">u</span><span class="color-yellow">r</span> <span class="color-blue">l</span><span class="color-green">e</span>tt<span class="color-green">e</span><span class="color-yellow">r</span>s.
+            </p>
+        </div>
         <div class="puzzle-input-wrapper">
             <input type="text" id="puzzle-input" autocomplete="off" placeholder="" />
         </div>
+        <div id="puzzle-error" class="hidden-error">すでに回答済みのようだ</div>
         <button id="puzzle-submit">Enter</button>
     </section>
+
+    <!-- 演出用要素 -->
+    <div id="dark-backdrop"></div>
+    <div id="congratulations-text">Congratulations!</div>
 
     <!-- 正解用オーバーレイ（モーダル） -->
     <div id="puzzle-overlay">

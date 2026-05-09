@@ -219,91 +219,205 @@ function updateGrade() {
 // 学年計算を実行
 updateGrade();
 
-// --- 謎解きの判定ロジック ---
-function checkPuzzle() {
+// --- 謎解きの判定・演出ロジック ---
+const TARGET_ANSWERS = ['open', 'rule', 'text'];
+const solvedWords = new Set();
+
+const explanations = {
+    open: `
+        <p><strong>【問題１：OPENの解説】</strong></p>
+        <p>各色の英単語の「図形の頂点の数」文字目を拾うと…</p>
+        <p>
+            <span style="color: #cda800;">yell<strong>O</strong>w</span>（五角形 = 5文字目）<br>
+            <span style="color: #8c3cc8;">pur<strong>P</strong>le</span>（四角形 = 4文字目）<br>
+            <span style="color: #2878dc;">blu<strong>E</strong></span>（四角形 = 4文字目）<br>
+            <span style="color: #32b450;">gree<strong>N</strong></span>（五角形 = 5文字目）
+        </p>
+        <p>答えは「<strong>OPEN</strong>」！</p>
+    `,
+    rule: `
+        <p><strong>【問題２：RULEの解説】</strong></p>
+        <p>入力欄の上の英文「Answer in four letters.」に注目します。</p>
+        <p>色付けされた文字を、画面上を漂っている図形の頂点の数（黄＝５、紫＝４、青＝４、緑＝５）の順番、つまり「紫(4)→青(4)→黄(5)→緑(5)」の順に拾い上げようとしても、４の図形と５の図形が２つずつあります。</p>
+        <p>ここで、同じ色の文字を英単語から探すと…<br>
+            黄色の <strong>r</strong><br>
+            紫の <strong>u</strong><br>
+            青の <strong>l</strong><br>
+            緑の <strong>e</strong><br>
+        </p>
+        <p>これらを「紫→黄→青→緑」ではなく、シンプルに「r, u, l, e」を並べ替えて意味のある4文字の英単語を作ると「<strong>RULE</strong>」になります！</p>
+    `,
+    text: `
+        <p><strong>【問題３：TEXTの解説】</strong></p>
+        <p>（未記入）</p>
+        <p>ここに第3の謎の解説が入ります。</p>
+    `
+};
+
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
+async function checkPuzzle() {
     const input = document.getElementById('puzzle-input');
+    const submitBtn = document.getElementById('puzzle-submit');
+    const errorMsg = document.getElementById('puzzle-error');
     if (!input) return;
 
-    // 全角英数字を半角に変換
     let val = input.value.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
         return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
     });
-    // 小文字にして空白を削除
     val = val.toLowerCase().trim();
 
-    if (val === 'open') {
-        // 正解：オーバーレイを表示
-        document.getElementById('puzzle-overlay').classList.add('visible');
-        
-        // フォームを無効化（「OPEN」と表示したまま操作不能にする）
-        input.value = 'OPEN';
-        input.disabled = true;
-        input.parentElement.classList.add('solved');
-        const submitBtn = document.getElementById('puzzle-submit');
-        if (submitBtn) submitBtn.disabled = true;
-        
-        // ポートフォリオの作品パネルを「製作作品」セクションに1度だけ追加
-        const worksSection = document.getElementById('works');
-        if (worksSection && !document.getElementById('portfolio-secret-work')) {
-            const secretWork = document.createElement('a');
-            secretWork.href = "javascript:void(0)";
-            secretWork.className = "work-card";
-            secretWork.id = "portfolio-secret-work";
-            secretWork.innerHTML = `
-                <div class="work-card-img">
-                    <img src="img/portfolio.png" alt="Portfolio">
-                </div>
-                <div class="work-card-content">
-                    <h3>Portfolio</h3>
-                    <div class="tag">ジャンル：謎解き | 媒体：Web</div>
-                    <p>ポートフォリオの中に隠された１問の謎。楽しんでいただけたら幸いです！</p>
-                </div>
-                <div class="work-card-action">
-                    <span class="action-text">解説を見る</span>
-                    <span class="action-arrow">→</span>
-                </div>
-            `;
-            
-            // クリック時にもう一度正解画面（解説）を表示する
-            secretWork.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.getElementById('puzzle-overlay').classList.add('visible');
-            });
+    errorMsg.classList.remove('visible');
 
-            worksSection.appendChild(secretWork);
-        }
+    if (solvedWords.has(val)) {
+        errorMsg.innerText = "すでに回答済みのようだ";
+        errorMsg.classList.add('visible');
+        return;
+    }
+
+    if (TARGET_ANSWERS.includes(val)) {
+        solvedWords.add(val);
+        input.value = '';
+        input.disabled = true;
+        submitBtn.disabled = true;
+        await handleCorrectSequence(val);
     } else {
-        // 不正解：入力欄を揺らす
         const wrapper = input.parentElement;
         wrapper.classList.remove('shake-anim');
-        void wrapper.offsetWidth; // リフローを強制してアニメーションをリセット
+        void wrapper.offsetWidth;
         wrapper.classList.add('shake-anim');
     }
 }
 
-// 謎解きのイベントリスナー設定
+async function handleCorrectSequence(word) {
+    const worksSection = document.getElementById('works');
+    const backdrop = document.getElementById('dark-backdrop');
+    const count = solvedWords.size;
+    
+    backdrop.classList.add('visible');
+    
+    if (count === 1) {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'placeholder-card highlight-card';
+        placeholder.id = 'portfolio-placeholder';
+        worksSection.appendChild(placeholder);
+        
+        placeholder.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        await delay(1500); // 光るアニメーションを見せる
+        
+        const secretWork = document.createElement('a');
+        secretWork.href = "javascript:void(0)";
+        secretWork.className = "work-card highlight-card";
+        secretWork.id = "portfolio-secret-work";
+        secretWork.innerHTML = `
+            <div class="work-card-img">
+                <img src="img/portfolio.png" alt="Portfolio">
+            </div>
+            <div class="work-card-content">
+                <h3>Portfolio</h3>
+                <div class="tag">ジャンル：謎解き | 媒体：Web</div>
+                <p>隠された謎を解き明かせ</p>
+            </div>
+            <div class="work-card-action progress-mode" id="portfolio-action">
+                <div class="progress-bg" id="portfolio-progress"></div>
+                <span class="action-text progress-text" id="portfolio-action-text">1/3</span>
+            </div>
+        `;
+        worksSection.replaceChild(secretWork, placeholder);
+        
+        await delay(100);
+        document.getElementById('portfolio-progress').style.width = '33.3%';
+        await delay(1000);
+        
+    } else {
+        const secretWork = document.getElementById('portfolio-secret-work');
+        secretWork.classList.add('highlight-card');
+        secretWork.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        await delay(800);
+        
+        const progress = document.getElementById('portfolio-progress');
+        const actionText = document.getElementById('portfolio-action-text');
+        
+        if (count === 2) {
+            actionText.innerText = "2/3";
+            progress.style.width = '66.6%';
+            await delay(1000);
+            
+            secretWork.classList.add('bounce-anim');
+            await delay(800);
+            secretWork.classList.remove('bounce-anim');
+        } else if (count === 3) {
+            actionText.innerText = "3/3";
+            progress.style.width = '100%';
+            await delay(1000);
+            
+            secretWork.classList.add('bounce-anim');
+            const congrats = document.getElementById('congratulations-text');
+            congrats.classList.add('visible');
+            
+            await delay(2000);
+            congrats.classList.remove('visible');
+            secretWork.classList.remove('bounce-anim');
+            await delay(500);
+            
+            const actionArea = document.getElementById('portfolio-action');
+            actionArea.classList.remove('progress-mode');
+            actionArea.innerHTML = \`
+                <span class="action-text">解説を見る</span>
+                <span class="action-arrow">→</span>
+            \`;
+            
+            secretWork.addEventListener('click', (e) => {
+                e.preventDefault();
+                showExplanationModal('all');
+            });
+        }
+    }
+    
+    showExplanationModal(word);
+}
+
+function showExplanationModal(type) {
+    const overlay = document.getElementById('puzzle-overlay');
+    const expContainer = document.querySelector('.puzzle-explanation');
+    
+    if (type === 'all') {
+        expContainer.innerHTML = explanations['open'] + '<hr style="border:none; border-top:1px dashed #ccc; margin: 30px 0;">' + explanations['rule'] + '<hr style="border:none; border-top:1px dashed #ccc; margin: 30px 0;">' + explanations['text'];
+    } else {
+        expContainer.innerHTML = explanations[type];
+    }
+    
+    document.getElementById('dark-backdrop').classList.remove('visible');
+    const secretWork = document.getElementById('portfolio-secret-work');
+    if(secretWork) secretWork.classList.remove('highlight-card');
+    
+    overlay.classList.add('visible');
+}
+
 const submitBtn = document.getElementById('puzzle-submit');
 const inputField = document.getElementById('puzzle-input');
 const closeBtn = document.getElementById('puzzle-close');
 const overlay = document.getElementById('puzzle-overlay');
 
-if (submitBtn) {
-    submitBtn.addEventListener('click', checkPuzzle);
-}
-
+if (submitBtn) submitBtn.addEventListener('click', checkPuzzle);
 if (inputField) {
     inputField.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            checkPuzzle();
-        }
+        if (e.key === 'Enter') checkPuzzle();
     });
 }
 
 if (closeBtn && overlay) {
     closeBtn.addEventListener('click', () => {
         overlay.classList.remove('visible');
-        if (inputField && !inputField.disabled) {
-            inputField.value = ''; // 正解していない（無効化されていない）時だけクリア
+        if (solvedWords.size < 3) {
+            inputField.disabled = false;
+            submitBtn.disabled = false;
+            inputField.value = '';
+            inputField.focus();
+        } else {
+            // 3問クリア後は入力欄を完全無効化
+            inputField.value = 'CLEARED';
+            inputField.parentElement.classList.add('solved');
         }
     });
 }
