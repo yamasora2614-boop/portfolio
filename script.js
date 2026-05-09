@@ -376,7 +376,20 @@ async function handleCorrectSequence(word) {
             </div>
         `;
         
-        // 初期状態として追加（高さ0で追加して自然な高さを測定する）
+        // 高さを正確に計算するために一旦見えない状態で追加
+        secretWork.style.visibility = 'hidden';
+        secretWork.style.position = 'absolute';
+        secretWork.style.display = 'flex';
+        secretWork.style.width = worksSection.clientWidth + 'px'; // 親の幅に合わせる
+        worksSection.appendChild(secretWork);
+        
+        // 本来の高さを測定
+        const targetHeight = secretWork.offsetHeight;
+        
+        // アニメーションの初期状態にリセット
+        secretWork.style.position = '';
+        secretWork.style.visibility = '';
+        secretWork.style.width = '';
         secretWork.style.overflow = 'hidden';
         secretWork.style.height = '0px';
         secretWork.style.marginBottom = '0px';
@@ -390,8 +403,8 @@ async function handleCorrectSequence(word) {
             worksSection.appendChild(secretWork);
         }
         
-        // 追加後に本来の高さを測定
-        const targetHeight = secretWork.scrollHeight;
+        // リフローを強制
+        void secretWork.offsetHeight;
         
         await delay(50);
         
@@ -441,7 +454,7 @@ async function handleCorrectSequence(word) {
     } else {
         const secretWork = document.getElementById('portfolio-secret-work');
         secretWork.classList.add('highlight-card');
-        secretWork.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.getElementById('portfolio-action').scrollIntoView({ behavior: 'smooth', block: 'center' });
         await delay(1000); // スクロール完了をゆったり待つ
         
         const actionArea = document.getElementById('portfolio-action');
