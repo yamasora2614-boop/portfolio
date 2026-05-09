@@ -224,33 +224,34 @@ const TARGET_ANSWERS = ['open', 'rule', 'text'];
 const solvedWords = new Set();
 
 const explanations = {
-    open: `
-        <p><strong>【問題１：OPENの解説】</strong></p>
-        <p>各色の英単語の「図形の頂点の数」文字目を拾うと…</p>
-        <p>
-            <span style="color: #cda800;">yell<strong>O</strong>w</span>（五角形 = 5文字目）<br>
-            <span style="color: #8c3cc8;">pur<strong>P</strong>le</span>（四角形 = 4文字目）<br>
-            <span style="color: #2878dc;">blu<strong>E</strong></span>（四角形 = 4文字目）<br>
-            <span style="color: #32b450;">gree<strong>N</strong></span>（五角形 = 5文字目）
-        </p>
-        <p>答えは「<strong>OPEN</strong>」！</p>
+    final_prefix: `
+        <div style="margin-bottom: 20px;">
+            <img src="img/Answerbar.png" alt="Answerbar" style="max-width: 100%; border-radius: 4px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <p>解答欄に、「<span class="color-yellow">黄</span>→<span class="color-purple">紫</span>→<span class="color-blue">青</span>→<span class="color-green">緑</span>」と装飾がされている。<br>
+            ページ内など様々な場所から同じ四色が使われた場所を探して、言葉を導く。</p>
+        </div>
+        <hr style="border:none; border-top:1px dashed #ccc; margin: 30px 0;">
     `,
     rule: `
-        <p><strong>【問題２：RULEの解説】</strong></p>
-        <p>入力欄の上の英文「Answer in four letters.」に注目します。</p>
-        <p>色付けされた文字を、画面上を漂っている図形の頂点の数（黄＝５、紫＝４、青＝４、緑＝５）の順番、つまり「紫(4)→青(4)→黄(5)→緑(5)」の順に拾い上げようとしても、４の図形と５の図形が２つずつあります。</p>
-        <p>ここで、同じ色の文字を英単語から探すと…<br>
-            黄色の <strong>r</strong><br>
-            紫の <strong>u</strong><br>
-            青の <strong>l</strong><br>
-            緑の <strong>e</strong><br>
-        </p>
-        <p>これらを「紫→黄→青→緑」ではなく、シンプルに「r, u, l, e」を並べ替えて意味のある4文字の英単語を作ると「<strong>RULE</strong>」になります！</p>
+        <p><strong>【１問目　Lv.★☆☆】</strong></p>
+        <p>解答欄の上に書かれた問題文<br>
+        「Answ<span class="color-green">e</span><span class="color-yellow">r</span> in fo<span class="color-purple">u</span><span class="color-yellow">r</span> <span class="color-blue">l</span><span class="color-green">e</span>tt<span class="color-green">e</span><span class="color-yellow">r</span>s.」の色のついた文字を拾う。</p>
+        <p>答えは「<strong>RULE</strong>」。</p>
     `,
     text: `
-        <p><strong>【問題３：TEXTの解説】</strong></p>
+        <p><strong>【２問目　Lv.★★☆】</strong></p>
         <p>（未記入）</p>
-        <p>ここに第3の謎の解説が入ります。</p>
+    `,
+    open: `
+        <p><strong>【３問目　Lv.★★★】</strong></p>
+        <p>各色の「図形の頂点の数」文字目を拾う。</p>
+        <p>
+            <span class="color-yellow">YELLOW</span>（五角形→５文字目）<br>
+            <span class="color-purple">PURPLE</span>（四角形→４文字目）<br>
+            <span class="color-blue">BLUE</span>（四角形→４文字目）<br>
+            <span class="color-green">GREEN</span>（五角形→５文字目）
+        </p>
+        <p>答えは「<strong>OPEN</strong>」。</p>
     `
 };
 
@@ -471,7 +472,12 @@ function showExplanationModal(type) {
     const expContainer = document.querySelector('.puzzle-explanation');
     
     if (type === 'all') {
-        expContainer.innerHTML = explanations['open'] + '<hr style="border:none; border-top:1px dashed #ccc; margin: 30px 0;">' + explanations['rule'] + '<hr style="border:none; border-top:1px dashed #ccc; margin: 30px 0;">' + explanations['text'];
+        expContainer.innerHTML = explanations['final_prefix'] + 
+                                 explanations['rule'] + 
+                                 '<hr style="border:none; border-top:1px dashed #ccc; margin: 30px 0;">' + 
+                                 explanations['text'] + 
+                                 '<hr style="border:none; border-top:1px dashed #ccc; margin: 30px 0;">' + 
+                                 explanations['open'];
     } else {
         expContainer.innerHTML = explanations[type];
     }
