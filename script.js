@@ -207,12 +207,13 @@ function updateGrade() {
 
     let grade = currentSchoolYear - enrollmentYear + 1;
 
+    const isEn = document.documentElement.lang === 'en';
     if (grade >= 5) {
-        gradeDisplay.innerText = "卒業生（2029年卒業）";
+        gradeDisplay.innerText = isEn ? "Alumni (Graduated 2029)" : "卒業生（2029年卒業）";
     } else if (grade > 0) {
-        gradeDisplay.innerText = grade + "回生（2029年卒業予定）";
+        gradeDisplay.innerText = isEn ? `${grade}${grade === 1 ? 'st' : grade === 2 ? 'nd' : grade === 3 ? 'rd' : 'th'} Year Student (Expected Graduation: 2029)` : grade + "回生（2029年卒業予定）";
     } else {
-        gradeDisplay.innerText = "入学前（2029年卒業予定）";
+        gradeDisplay.innerText = isEn ? "Pre-enrollment (Expected Graduation: 2029)" : "入学前（2029年卒業予定）";
     }
 }
 
@@ -222,8 +223,9 @@ updateGrade();
 // --- 謎解きの判定・演出ロジック ---
 const TARGET_ANSWERS = ['open', 'rule', 'text'];
 const solvedWords = new Set();
+const isEn = document.documentElement.lang === 'en';
 
-const explanations = {
+const explanationsJP = {
     final_prefix: `
         <div style="margin-bottom: 20px;">
             <img src="img/Answerbar.png" alt="Answerbar" style="max-width: 100%; border-radius: 4px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
@@ -236,7 +238,7 @@ const explanations = {
         <p><strong>【１問目　Lv.★☆☆】</strong></p>
         <p>解答欄の上に書かれた問題文<br>
         「Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span><span class="color-yellow"><strong>r</strong></span> <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tt<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span>s.」の色のついた文字を拾う。</p>
-        <p>答えは「<strong>RULE</strong>」。</p>
+        <p class="answer-text">答えは「<strong>RULE</strong>」。</p>
     `,
     text: `
         <p><strong>【２問目　Lv.★★☆】</strong></p>
@@ -251,9 +253,43 @@ const explanations = {
             <span class="color-blue">BLU<strong>E</strong></span>（四角形→４文字目）<br>
             <span class="color-green">GREE<strong>N</strong></span>（五角形→５文字目）
         </p>
-        <p>答えは「<strong>OPEN</strong>」。</p>
+        <p class="answer-text">答えは「<strong>OPEN</strong>」。</p>
     `
 };
+
+const explanationsEN = {
+    final_prefix: `
+        <div style="margin-bottom: 20px;">
+            <img src="../img/Answerbar.png" alt="Answerbar" style="max-width: 100%; border-radius: 4px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <p>The answer field is decorated with "<span class="color-yellow">Yellow</span> &rarr; <span class="color-purple">Purple</span> &rarr; <span class="color-blue">Blue</span> &rarr; <span class="color-green">Green</span>".<br>
+            Find where these same four colors are used across the page to deduce the answer.</p>
+        </div>
+        <hr style="border:none; border-top:1px dashed #ccc; margin: 30px 0;">
+    `,
+    rule: `
+        <p><strong>[ Question 1 - Lv.★☆☆ ]</strong></p>
+        <p>Look at the question text above the answer field.<br>
+        Extract the colored letters from "Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span><span class="color-yellow"><strong>r</strong></span> <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tt<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span>s."</p>
+        <p class="answer-text">The answer is "<strong>RULE</strong>".</p>
+    `,
+    text: `
+        <p><strong>[ Question 2 - Lv.★★☆ ]</strong></p>
+        <p>(Blank)</p>
+    `,
+    open: `
+        <p><strong>[ Question 3 - Lv.★★★ ]</strong></p>
+        <p>Extract the N-th letter of each color word, where N is the number of vertices of the shapes drifting in the background.</p>
+        <p>
+            <span class="color-yellow">YELL<strong>O</strong>W</span> (Pentagon &rarr; 5th letter)<br>
+            <span class="color-purple">PUR<strong>P</strong>LE</span> (Square &rarr; 4th letter)<br>
+            <span class="color-blue">BLU<strong>E</strong></span> (Square &rarr; 4th letter)<br>
+            <span class="color-green">GREE<strong>N</strong></span> (Pentagon &rarr; 5th letter)
+        </p>
+        <p class="answer-text">The answer is "<strong>OPEN</strong>".</p>
+    `
+};
+
+const explanations = isEn ? explanationsEN : explanationsJP;
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -290,23 +326,24 @@ async function checkPuzzle() {
     errorMsg.classList.remove('visible');
 
     if (solvedWords.has(val)) {
-        errorMsg.innerText = "すでに回答済みのようだ";
-        errorMsg.classList.add('visible');
+        showError(isEn ? "Already answered." : "すでに回答済みのようだ");
         return;
     }
-
-    if (TARGET_ANSWERS.includes(val)) {
-        solvedWords.add(val);
-        localStorage.setItem('portfolio_puzzle_progress', JSON.stringify(Array.from(solvedWords)));
-        input.disabled = true;
-        submitBtn.disabled = true;
-        await handleCorrectSequence(val);
-    } else {
+    
+    if (!TARGET_ANSWERS.includes(val)) {
+        showError(isEn ? "Nothing happened..." : "何も起こらない...");
         const wrapper = input.parentElement;
         wrapper.classList.remove('shake-anim');
         void wrapper.offsetWidth;
         wrapper.classList.add('shake-anim');
+        return;
     }
+
+    solvedWords.add(val);
+    localStorage.setItem('portfolio_puzzle_progress', JSON.stringify(Array.from(solvedWords)));
+    input.disabled = true;
+    submitBtn.disabled = true;
+    await handleCorrectSequence(val);
 }
 
 async function handleCorrectSequence(word) {
@@ -388,7 +425,9 @@ async function handleCorrectSequence(word) {
         actionArea.classList.add('animating');
         secretWork.classList.add('elevated-anim');
         
-        document.getElementById('portfolio-progress').style.width = '33.3%';
+        const progress = document.getElementById('portfolio-progress');
+        progress.style.transition = '';
+        progress.style.width = '33.3%';
         await delay(2000); // ゲージ上昇を2秒待つ
         
         actionArea.classList.remove('animating');
@@ -418,6 +457,7 @@ async function handleCorrectSequence(word) {
             actionArea.classList.add('animating');
             secretWork.classList.add('elevated-anim');
             
+            progress.style.transition = '';
             progress.style.width = '66.6%';
             await delay(2000);
             
@@ -429,6 +469,7 @@ async function handleCorrectSequence(word) {
             actionArea.classList.add('animating');
             secretWork.classList.add('elevated-anim');
             
+            progress.style.transition = '';
             progress.style.width = '100%';
             await delay(2000);
             
@@ -441,7 +482,9 @@ async function handleCorrectSequence(word) {
             // 説明文を変更
             const desc = secretWork.querySelector('.work-card-content p');
             if (desc) {
-                desc.innerHTML = 'ポートフォリオの中に隠された謎を解き明かす。<br>全問正解、おめでとうございます！';
+                desc.innerHTML = isEn 
+                    ? "You've uncovered the hidden riddles within the portfolio.<br>Congratulations on getting all answers right!"
+                    : "ポートフォリオの中に隠された謎を解き明かす。<br>全問正解、おめでとうございます！";
             }
             
             await delay(2000);
@@ -449,8 +492,9 @@ async function handleCorrectSequence(word) {
             await delay(500);
             
             actionArea.classList.remove('progress-mode');
+            actionArea.classList.remove('progress-mode');
             actionArea.innerHTML = `
-                <span class="action-text">解説を見る</span>
+                <span class="action-text">${isEn ? 'View Explanation' : '解説を見る'}</span>
                 <span class="action-arrow">→</span>
             `;
             
@@ -550,7 +594,7 @@ function restorePuzzleUIState() {
     let progressWidth = '0%';
     let actionText = '';
     let actionHTML = '';
-    let descText = '隠された謎を解き明かせ';
+    let descText = isEn ? 'Uncover the hidden riddles.' : '隠された謎を解き明かせ';
     
     if (count === 1) {
         progressWidth = '33.3%';
@@ -560,7 +604,9 @@ function restorePuzzleUIState() {
         actionText = '2/3';
     } else if (count === 3) {
         progressWidth = '100%';
-        descText = 'ポートフォリオの中に隠された謎を解き明かす。<br>全問正解、おめでとうございます！';
+        descText = isEn 
+            ? "You've uncovered the hidden riddles within the portfolio.<br>Congratulations on getting all answers right!"
+            : "ポートフォリオの中に隠された謎を解き明かす。<br>全問正解、おめでとうございます！";
     }
 
     if (count < 3) {
@@ -583,11 +629,11 @@ function restorePuzzleUIState() {
 
     secretWork.innerHTML = `
         <div class="work-card-img">
-            <img src="img/portfolio.png" alt="Portfolio">
+            <img src="${isEn ? '../' : ''}img/portfolio.png" alt="Portfolio">
         </div>
         <div class="work-card-content">
             <h3>Portfolio</h3>
-            <div class="tag">ジャンル：謎解き | 媒体：Web</div>
+            <div class="tag">${isEn ? 'Genre: Riddle | Platform: Web' : 'ジャンル：謎解き | 媒体：Web'}</div>
             <p>${descText}</p>
         </div>
         ${actionHTML}

@@ -33,6 +33,28 @@ header {
     text-align: center;
     padding: 60px 0 30px;
     margin-bottom: 50px;
+    position: relative;
+}
+
+.lang-switcher {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+.lang-switcher a {
+    color: #999;
+    text-decoration: none;
+    transition: color 0.3s;
+    padding: 0 5px;
+}
+.lang-switcher a:hover {
+    color: #333;
+}
+.lang-switcher a.active {
+    color: #111;
+    pointer-events: none;
 }
 
 section {
@@ -496,8 +518,8 @@ a.work-card:hover .action-arrow {
     color: #333;
 }
 
-.puzzle-explanation p:last-child {
-    margin-bottom: 0;
+.answer-text {
+    margin-bottom: 0 !important;
     text-align: left;
     font-size: 1.2em;
     margin-top: 15px;
