@@ -14,6 +14,11 @@ body {
     letter-spacing: 0.03em;
 }
 
+/* 「遡」の二点之繞などを正しく表示させるためのフォント指定 */
+.proper-name {
+    font-family: 'Yu Mincho', 'MS Mincho', 'Hiragino Mincho ProN', serif;
+}
+
 #bg-canvas {
     position: fixed;
     top: 0;

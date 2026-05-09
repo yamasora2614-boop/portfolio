@@ -228,7 +228,7 @@ const isEn = document.documentElement.lang === 'en';
 const explanationsJP = {
     final_prefix: `
         <div style="margin-bottom: 20px;">
-            <img src="img/Answerbar.png" alt="Answerbar" style="max-width: 100%; border-radius: 4px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <img src="img/AnswerBar.png" alt="Answerbar" style="max-width: 100%; border-radius: 4px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
             <p>解答欄に、「<span class="color-yellow">黄</span>→<span class="color-purple">紫</span>→<span class="color-blue">青</span>→<span class="color-green">緑</span>」と装飾がされている。<br>
             ページ内など様々な場所から同じ四色が使われた場所を探して、言葉を導く。</p>
         </div>
@@ -260,7 +260,7 @@ const explanationsJP = {
 const explanationsEN = {
     final_prefix: `
         <div style="margin-bottom: 20px;">
-            <img src="../img/Answerbar.png" alt="Answerbar" style="max-width: 100%; border-radius: 4px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <img src="../img/AnswerBar.png" alt="Answerbar" style="max-width: 100%; border-radius: 4px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
             <p>The answer field is decorated with "<span class="color-yellow">Yellow</span> &rarr; <span class="color-purple">Purple</span> &rarr; <span class="color-blue">Blue</span> &rarr; <span class="color-green">Green</span>".<br>
             Find where these same four colors are used across the page to deduce the answer.</p>
         </div>
