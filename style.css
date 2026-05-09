@@ -370,6 +370,8 @@ a.work-card:hover .action-arrow {
     }
     .puzzle-modal {
         padding: 25px 20px;
+        width: 95%; /* スマホでは横幅いっぱい */
+        max-height: 85vh; /* 画面に収める */
     }
     .puzzle-modal h2 {
         font-size: 1.4em;
@@ -462,8 +464,10 @@ a.work-card:hover .action-arrow {
     transform: translateY(20px) scale(0.95);
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    max-width: 90%;
-    width: 450px;
+    max-width: 95%;
+    width: 600px; /* 横長に変更 */
+    max-height: 85vh; /* 画面からはみ出さないように */
+    overflow-y: auto; /* はみ出た場合はスクロール可能に */
 }
 
 #puzzle-overlay.visible .puzzle-modal {
@@ -677,4 +681,16 @@ a.work-card:hover .action-arrow {
 #congratulations-text.visible {
     opacity: 1;
     transform: translate(-50%, 0);
+}
+
+/* ゲージ進行中のカードホバー無効化 */
+a.work-card.progress-locked {
+    cursor: default;
+}
+a.work-card.progress-locked:hover {
+    transform: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+}
+a.work-card.progress-locked:hover .work-card-img img {
+    transform: none;
 }

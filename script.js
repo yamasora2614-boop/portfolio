@@ -307,7 +307,7 @@ async function handleCorrectSequence(word) {
         
         const secretWork = document.createElement('a');
         secretWork.href = "javascript:void(0)";
-        secretWork.className = "work-card highlight-card";
+        secretWork.className = "work-card highlight-card progress-locked";
         secretWork.id = "portfolio-secret-work";
         secretWork.innerHTML = `
             <div class="work-card-img">
@@ -366,6 +366,9 @@ async function handleCorrectSequence(word) {
                 <span class="action-text">解説を見る</span>
                 <span class="action-arrow">→</span>
             `;
+            
+            // 進行中のホバー無効化を解除
+            secretWork.classList.remove('progress-locked');
             
             secretWork.addEventListener('click', (e) => {
                 e.preventDefault();
