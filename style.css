@@ -84,6 +84,13 @@ h2::after {
     border-radius: 2px;
 }
 
+/* 謎解き用の「？？？」見出しスタイル（シンプルで少しミステリアスな明朝体） */
+h2.mystery-heading {
+    font-family: 'Yu Mincho', 'YuMincho', 'Hiragino Mincho ProN', 'Noto Serif JP', serif;
+    font-weight: 400; /* 通常のh2より少し細くして上品に */
+    letter-spacing: 0.3em; /* 間隔を広げて謎めいた雰囲気に */
+}
+
 /* Glassmorphism（すりガラス）ベースのカードスタイル */
 .profile-box, .work-card {
     background: rgba(255, 255, 255, 0.35); /* 透明度を上げる（より透けさせる） */
