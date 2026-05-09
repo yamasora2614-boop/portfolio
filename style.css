@@ -618,22 +618,28 @@ a.work-card:hover .action-arrow {
     height: 100%;
     width: 0%;
     background: linear-gradient(90deg, rgba(244, 128, 36, 0.2), rgba(244, 128, 36, 0.5));
-    transition: width 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 0;
 }
 .progress-text {
     position: relative;
     z-index: 1;
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.work-card-action.progress-mode.animating .progress-text {
+    font-size: 1.8em;
+    color: #f48024;
+    text-shadow: 0 2px 10px rgba(255,255,255,0.8);
+    font-weight: 800;
 }
 
 /* バウンスアニメーション */
 .bounce-anim {
-    animation: card-bounce 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation: card-bounce-loop 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
 }
-@keyframes card-bounce {
-    0% { transform: scale(1); box-shadow: 0 10px 40px rgba(0,0,0,0.04); }
-    50% { transform: scale(1.05); box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
-    100% { transform: scale(1); box-shadow: 0 10px 40px rgba(0,0,0,0.04); }
+@keyframes card-bounce-loop {
+    0%, 100% { transform: scale(1); box-shadow: 0 10px 40px rgba(0,0,0,0.04); }
+    50% { transform: scale(1.03); box-shadow: 0 25px 50px rgba(244, 128, 36, 0.15); }
 }
 
 /* Congratulationsテキスト */

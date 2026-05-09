@@ -352,7 +352,7 @@ async function handleCorrectSequence(word) {
         secretWork.style.height = '0px';
         secretWork.style.marginBottom = '0px';
         secretWork.style.opacity = '0';
-        secretWork.style.transition = 'height 1s cubic-bezier(0.2, 0.8, 0.2, 1), margin-bottom 1s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease-in-out 0.3s';
+        secretWork.style.transition = 'height 1.5s cubic-bezier(0.4, 0, 0.2, 1), margin-bottom 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease-in-out 0.5s';
         
         await delay(50);
         
@@ -362,7 +362,7 @@ async function handleCorrectSequence(word) {
         secretWork.style.opacity = '1';
         
         // 空間が開ききるのを待つ
-        await delay(1000);
+        await delay(1500);
         
         // 展開しきってから、ずれないようにスクロール
         secretWork.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -376,42 +376,58 @@ async function handleCorrectSequence(word) {
         secretWork.style.height = 'auto';
         secretWork.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
         
-        await delay(200);
+        await delay(300);
+        
+        const actionArea = document.getElementById('portfolio-action');
+        actionArea.classList.add('animating');
+        secretWork.classList.add('bounce-anim');
+        
         document.getElementById('portfolio-progress').style.width = '33.3%';
-        await delay(1000);
+        await delay(2000); // ゲージ上昇を2秒待つ
+        
+        actionArea.classList.remove('animating');
+        secretWork.classList.remove('bounce-anim');
+        await delay(300);
         
     } else {
         const secretWork = document.getElementById('portfolio-secret-work');
         secretWork.classList.add('highlight-card');
         secretWork.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        await delay(800);
+        await delay(1000); // スクロール完了をゆったり待つ
         
+        const actionArea = document.getElementById('portfolio-action');
         const progress = document.getElementById('portfolio-progress');
         const actionText = document.getElementById('portfolio-action-text');
         
         if (count === 2) {
             actionText.innerText = "2/3";
-            progress.style.width = '66.6%';
-            await delay(1000);
-            
+            actionArea.classList.add('animating');
             secretWork.classList.add('bounce-anim');
-            await delay(800);
+            
+            progress.style.width = '66.6%';
+            await delay(2000);
+            
+            actionArea.classList.remove('animating');
             secretWork.classList.remove('bounce-anim');
+            await delay(300);
         } else if (count === 3) {
             actionText.innerText = "3/3";
-            progress.style.width = '100%';
-            await delay(1000);
-            
+            actionArea.classList.add('animating');
             secretWork.classList.add('bounce-anim');
+            
+            progress.style.width = '100%';
+            await delay(2000);
+            
+            actionArea.classList.remove('animating');
+            secretWork.classList.remove('bounce-anim');
+            
             const congrats = document.getElementById('congratulations-text');
             congrats.classList.add('visible');
             
             await delay(2000);
             congrats.classList.remove('visible');
-            secretWork.classList.remove('bounce-anim');
             await delay(500);
             
-            const actionArea = document.getElementById('portfolio-action');
             actionArea.classList.remove('progress-mode');
             actionArea.innerHTML = `
                 <span class="action-text">解説を見る</span>
