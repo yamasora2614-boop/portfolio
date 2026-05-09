@@ -614,9 +614,6 @@ function restorePuzzleUIState() {
     }
 }
 
-    });
-}
-
 // リセット機能の設定
 const resetBtn = document.getElementById('portfolio-reset-btn');
 const resetModal = document.getElementById('reset-modal');
