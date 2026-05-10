@@ -558,7 +558,6 @@ function showExplanationModal(type) {
 
 const submitBtn = document.getElementById('puzzle-submit');
 const inputField = document.getElementById('puzzle-input');
-const closeBtn = document.getElementById('puzzle-close');
 const overlay = document.getElementById('puzzle-overlay');
 
 if (submitBtn) submitBtn.addEventListener('click', checkPuzzle);
@@ -583,8 +582,14 @@ function closeModal() {
 }
 
 if (overlay) {
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
     if (closeBtnTop) closeBtnTop.addEventListener('click', closeModal);
+    
+    // パネル外（オーバーレイ背景）のクリックでも閉じる
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            closeModal();
+        }
+    });
 }
 
 // --- 進捗の保存と復元 ---
