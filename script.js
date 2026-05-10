@@ -374,6 +374,15 @@ async function checkPuzzle() {
     }
     
     if (!TARGET_ANSWERS.includes(val)) {
+        // --- 小ネタ・イースターエッグの処理 ---
+        if (val === '5445') {
+            showError(isEn ? "You're looking at the right spot." : "着目した点は合っている。");
+        } else if (val === '英語四文字' || val === 'four letters' || val === 'fourletters') {
+            showError(isEn ? "That's not what it means." : "そういうことではない。");
+        } else if (val === 'agnm' || val === 'agim') {
+            showError(isEn ? "That word probably doesn't exist." : "そんな単語は多分無い。");
+        }
+
         const wrapper = input.parentElement;
         wrapper.classList.remove('shake-anim');
         void wrapper.offsetWidth;
