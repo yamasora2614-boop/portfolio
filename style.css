@@ -419,6 +419,9 @@ a.work-card:hover .action-arrow {
 .en-instruction.hint-solved span {
     color: #444 !important; /* 通常の文字色に近いダークグレー */
 }
+.en-instruction.hint-solved strong {
+    font-weight: normal !important; /* 太字も通常の太さに戻す */
+}
 
 .puzzle-input-wrapper {
     position: relative;
