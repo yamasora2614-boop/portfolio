@@ -375,21 +375,30 @@ a.work-card:hover .action-arrow {
         box-sizing: border-box;
     }
     .work-card {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: row; /* 横並びを維持 */
+        align-items: center;
     }
     .work-card-img {
-        width: auto;
-        height: auto;
-        aspect-ratio: 1 / 1; /* スマホでも横幅に合わせて正方形を維持 */
+        width: 110px; /* スマホ用に縮小 */
+        height: 110px;
         margin: 15px;
-        margin-bottom: 0;
+        margin-right: 10px;
+        flex-shrink: 0;
     }
     .work-card-content {
-        padding: 15px;
+        padding: 15px 15px 15px 0;
+        flex: 1;
+    }
+    .work-card-content p {
+        font-size: 0.85em; /* 少しテキストを小さくして収める */
+        line-height: 1.5;
+    }
+    .work-card-content .tag {
+        font-size: 0.75em;
     }
     .work-card h3 {
-        font-size: 1.3em;
+        font-size: 1.1em;
+        margin-bottom: 4px;
     }
     #puzzle-section {
         margin: 40px auto 30px; /* 上下の余白を減らしてスッキリ */
