@@ -458,6 +458,38 @@ a.work-card:hover .action-arrow {
     box-shadow: 0 4px 15px rgba(244, 128, 36, 0.4);
 }
 
+/* エラーメッセージの表示 */
+#puzzle-error {
+    color: #e74c3c;
+    font-size: 0.95em;
+    margin-bottom: 0;
+    font-weight: 600;
+    height: 0;
+    opacity: 0;
+    transform: translateY(-5px);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+#puzzle-error.visible {
+    height: auto;
+    min-height: 24px;
+    margin-bottom: 12px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 不正解時のブルブルアニメーション */
+.shake-anim {
+    animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
 /* 謎解きオーバーレイ（モーダル） */
 #puzzle-overlay {
     position: fixed;

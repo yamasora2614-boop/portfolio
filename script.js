@@ -312,6 +312,18 @@ function setScrollLock(locked) {
     }
 }
 
+function showError(msg) {
+    const errorMsg = document.getElementById('puzzle-error');
+    if (!errorMsg) return;
+    errorMsg.innerText = msg;
+    errorMsg.classList.add('visible');
+    
+    // 一定時間後に自動で消去する
+    setTimeout(() => {
+        errorMsg.classList.remove('visible');
+    }, 2500);
+}
+
 async function checkPuzzle() {
     const input = document.getElementById('puzzle-input');
     const submitBtn = document.getElementById('puzzle-submit');
