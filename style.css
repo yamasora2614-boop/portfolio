@@ -348,22 +348,22 @@ a.work-card:hover .action-arrow {
 /* レスポンシブ対応 */
 @media (max-width: 700px) {
     body {
-        padding: 15px 12px;
+        padding: 10px 12px; /* さらにスリムに */
     }
     header {
-        padding: 40px 0 20px;
-        margin-bottom: 30px;
-    }
-    h1 {
-        font-size: 2.2em;
-    }
-    h2 {
-        font-size: 1.5em;
-        margin-top: 40px;
+        padding: 30px 0 15px;
         margin-bottom: 20px;
     }
+    h1 {
+        font-size: 1.8em; /* 少し小さくしてスッキリ */
+    }
+    h2 {
+        font-size: 1.4em;
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
     .profile-box {
-        padding: 20px;
+        padding: 18px; /* ギチギチ感を減らすため内側余白微減 */
     }
     .profile-links {
         flex-direction: column;
@@ -392,23 +392,19 @@ a.work-card:hover .action-arrow {
         font-size: 1.3em;
     }
     #puzzle-section {
-        margin: 60px auto 40px;
+        margin: 40px auto 30px; /* 上下の余白を減らしてスッキリ */
     }
     #puzzle-input {
-        font-size: 1.4em;
-        height: 50px;
+        font-size: 1.3em;
+        height: 46px;
     }
     .puzzle-modal {
-        padding: 25px 20px;
-        width: 95%; /* スマホでは横幅いっぱい */
-        max-height: 85vh; /* 画面に収める */
+        padding: 30px 20px 20px; /* モーダルのパディングも最適化 */
     }
     .puzzle-modal h2 {
-        font-size: 1.4em;
-    }
-    .puzzle-explanation {
-        font-size: 0.95em;
-        padding: 15px;
+        font-size: 1.2em;
+        margin-top: 5px;
+        padding-right: 20px; /* 右上ボタンに被らないように */
     }
 }
 
@@ -487,21 +483,59 @@ a.work-card:hover .action-arrow {
 }
 
 .puzzle-modal {
-    background: rgba(255, 255, 255, 0.95);
+    background: #fff;
     padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    transform: translateY(20px) scale(0.95);
-    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    max-width: 95%;
-    width: 600px; /* 横長に変更 */
-    max-height: 85vh; /* 画面からはみ出さないように */
-    overflow-y: auto; /* はみ出た場合はスクロール可能に */
+    border-radius: 24px;
+    width: 90%;
+    max-width: 550px;
+    position: relative; /* 右上閉じるボタン配置のため */
+    box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+    transform: translateY(40px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    color: #111;
+    max-height: 85vh; /* スマホではみ出さないように高さを制限 */
+    overflow-y: auto;  /* 縦スクロール可能にする */
+    box-sizing: border-box;
+}
+
+/* モーダル右上閉じるボタン */
+.puzzle-close-top-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 36px;
+    height: 36px;
+    background: #f1f1f1;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    transition: all 0.2s;
+    z-index: 10;
+}
+.puzzle-close-top-btn:hover {
+    background: #e1e1e1;
+    color: #111;
+}
+@media (max-width: 700px) {
+    .puzzle-close-top-btn {
+        width: 40px; /* スマホでは押しやすく少し大きく */
+        height: 40px;
+        top: 10px;
+        right: 10px;
+        background: rgba(0,0,0,0.05);
+    }
 }
 
 #puzzle-overlay.visible .puzzle-modal {
     transform: translateY(0) scale(1);
+    opacity: 1;
 }
 
 .puzzle-modal h2 {

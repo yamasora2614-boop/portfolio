@@ -10,9 +10,11 @@ function resize() {
     const newHeight = window.innerHeight;
     const dpr = window.devicePixelRatio || 1;
 
-    // 初回読み込み、または画面の幅が変わった時（縦横の回転など）のみ図形を再生成する
-    // スマホのスクロールで高さだけが変わる時は再生成しない（背景が高速で飛ぶ・リセットされるバグの防止）
-    const shouldInitParticles = (width !== newWidth);
+    // 初回読み込み、または画面の幅が変わった時（縦横の回転など）のみ図形を再生成・Canvasサイズを再設定する
+    // スマホのスクロールで高さだけが変わる時は何もせず終了する（背景がクリアされるバグを完全に防ぐ）
+    if (width === newWidth) {
+        return;
+    }
 
     width = newWidth;
     height = newHeight;
@@ -28,9 +30,7 @@ function resize() {
     // 描画スケールをピクセル比に合わせる
     ctx.scale(dpr, dpr);
 
-    if (shouldInitParticles) {
-        initParticles();
-    }
+    initParticles();
 }
 
 window.addEventListener('resize', resize);
@@ -557,19 +557,23 @@ if (inputField) {
     });
 }
 
-if (closeBtn && overlay) {
-    closeBtn.addEventListener('click', () => {
-        overlay.classList.remove('visible');
-        if (solvedWords.size < 3) {
-            inputField.disabled = false;
-            submitBtn.disabled = false;
-            inputField.value = '';
-        } else {
-            // 3問クリア後は入力欄を完全無効化
-            inputField.value = 'CLEARED';
-            inputField.parentElement.classList.add('solved');
-        }
-    });
+const closeBtnTop = document.getElementById('puzzle-close-top');
+
+function closeModal() {
+    overlay.classList.remove('visible');
+    if (solvedWords.size < 3) {
+        inputField.disabled = false;
+        submitBtn.disabled = false;
+        inputField.value = '';
+    } else {
+        inputField.value = 'CLEARED';
+        inputField.parentElement.classList.add('solved');
+    }
+}
+
+if (overlay) {
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (closeBtnTop) closeBtnTop.addEventListener('click', closeModal);
 }
 
 // --- 進捗の保存と復元 ---
@@ -629,7 +633,7 @@ function restorePuzzleUIState() {
     } else {
         actionHTML = `
             <div class="work-card-action" id="portfolio-action">
-                <span class="action-text">解説を見る</span>
+                <span class="action-text">${isEn ? 'View Explanation' : '解説を見る'}</span>
                 <span class="action-arrow">→</span>
             </div>
         `;
