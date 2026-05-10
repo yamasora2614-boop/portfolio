@@ -343,7 +343,6 @@ async function checkPuzzle() {
     }
     
     if (!TARGET_ANSWERS.includes(val)) {
-        showError(isEn ? "Nothing happened..." : "何も起こらない...");
         const wrapper = input.parentElement;
         wrapper.classList.remove('shake-anim');
         void wrapper.offsetWidth;
