@@ -156,15 +156,26 @@ class Particle {
 function initParticles() {
     particles = [];
     
-    // 謎解き用の特別な図形を追加（常に1つずつ存在する）
-    // 黄色の五角形
-    particles.push(new Particle({ sides: 5, color: 'rgba(230, 200, 20, 0.35)' }));
-    // 紫の四角形
-    particles.push(new Particle({ sides: 4, color: 'rgba(140, 60, 200, 0.35)' }));
-    // 青の四角形
-    particles.push(new Particle({ sides: 4, color: 'rgba(40, 120, 220, 0.35)' }));
-    // 緑の五角形
-    particles.push(new Particle({ sides: 5, color: 'rgba(50, 180, 80, 0.35)' }));
+    const isFullClear = (solvedWords.size === 3);
+    // openを解いている かつ 全問クリアではない 場合のみ、色付きヒントを非表示にする
+    const hideOpenHint = solvedWords.has('open') && !isFullClear;
+
+    if (!hideOpenHint) {
+        // 謎解き用の特別な図形を追加（常に1つずつ存在する）
+        // 黄色の五角形
+        particles.push(new Particle({ sides: 5, color: 'rgba(230, 200, 20, 0.35)' }));
+        // 紫の四角形
+        particles.push(new Particle({ sides: 4, color: 'rgba(140, 60, 200, 0.35)' }));
+        // 青の四角形
+        particles.push(new Particle({ sides: 4, color: 'rgba(40, 120, 220, 0.35)' }));
+        // 緑の五角形
+        particles.push(new Particle({ sides: 5, color: 'rgba(50, 180, 80, 0.35)' }));
+    } else {
+        // ヒント無効化時は、色付きのかわりに普通のパーティクルを4つ追加して総数を合わせる
+        for(let i=0; i<4; i++) {
+            particles.push(new Particle());
+        }
+    }
 
     // 面積が広くなった分（PADDING分）を含めて、密度を少し高めに計算する
     const area = (width + PADDING * 2) * (height + PADDING * 2);
@@ -172,6 +183,26 @@ function initParticles() {
     for (let i = 0; i < numParticles; i++) {
         particles.push(new Particle());
     }
+}
+
+// 謎解きの進捗状況（solvedWords）に合わせてヒント要素の見た目を更新する
+function updateHintEffects() {
+    const isFullClear = (solvedWords.size === 3);
+    
+    // --- RULE: 問題文の文字色切り替え ---
+    const enInst = document.querySelector('.en-instruction');
+    if (enInst) {
+        // ruleを正解済み かつ 全問クリア状態ではない 時にヒント色を消す
+        if (solvedWords.has('rule') && !isFullClear) {
+            enInst.classList.add('hint-solved');
+        } else {
+            enInst.classList.remove('hint-solved');
+        }
+    }
+    
+    // --- OPEN: 背景の図形再生成 ---
+    // initParticles()の中でsolvedWordsを判定しているため、呼び直すだけで条件に合わせて再配置される
+    initParticles();
 }
 
 function animate() {
@@ -352,6 +383,10 @@ async function checkPuzzle() {
 
     solvedWords.add(val);
     localStorage.setItem('portfolio_puzzle_progress', JSON.stringify(Array.from(solvedWords)));
+    
+    // 謎解きの進行に合わせてヒント演出を更新
+    updateHintEffects();
+    
     input.disabled = true;
     submitBtn.disabled = true;
     await handleCorrectSequence(val);
@@ -609,6 +644,9 @@ function initPuzzleProgress() {
     if (solvedWords.size > 0) {
         restorePuzzleUIState();
     }
+    
+    // ページ読み込み時の状態に合わせてヒント演出を初期化
+    updateHintEffects();
 }
 
 function restorePuzzleUIState() {
@@ -715,6 +753,9 @@ if (resetConfirm) {
     resetConfirm.addEventListener('click', () => {
         localStorage.removeItem('portfolio_puzzle_progress');
         solvedWords.clear();
+        
+        // リセット時はヒント演出（色や背景）も全て初期状態に復活させる
+        updateHintEffects();
         
         resetModal.classList.remove('visible');
         

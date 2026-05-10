@@ -415,6 +415,11 @@ a.work-card:hover .action-arrow {
     max-width: 450px;
 }
 
+/* ヒント解決時のスタイル（色を戻す） */
+.en-instruction.hint-solved span {
+    color: #444 !important; /* 通常の文字色に近いダークグレー */
+}
+
 .puzzle-input-wrapper {
     position: relative;
     border-radius: 40px;
