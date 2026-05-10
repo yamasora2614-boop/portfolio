@@ -1,6 +1,11 @@
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 
+// --- 謎解きの判定・状態保持（初期化より前に必要） ---
+const TARGET_ANSWERS = ['open', 'rule', 'text'];
+const solvedWords = new Set();
+const isEn = document.documentElement.lang === 'en';
+
 let width, height;
 let particles = [];
 let mouse = { x: null, y: null, radius: 150 };
@@ -238,7 +243,6 @@ function updateGrade() {
 
     let grade = currentSchoolYear - enrollmentYear + 1;
 
-    const isEn = document.documentElement.lang === 'en';
     if (grade >= 5) {
         gradeDisplay.innerText = isEn ? "Alumni (Graduated 2029)" : "卒業生（2029年卒業）";
     } else if (grade > 0) {
@@ -252,10 +256,6 @@ function updateGrade() {
 updateGrade();
 
 // --- 謎解きの判定・演出ロジック ---
-const TARGET_ANSWERS = ['open', 'rule', 'text'];
-const solvedWords = new Set();
-const isEn = document.documentElement.lang === 'en';
-
 const explanationsJP = {
     final_prefix: `
         <div style="margin-bottom: 20px;">
