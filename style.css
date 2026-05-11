@@ -90,7 +90,7 @@ header p {
 }
 
 h2 {
-    text-align: left;
+    text-align: center;
     font-size: 1.8em;
     font-weight: 600;
     color: #111;
@@ -101,13 +101,13 @@ h2 {
     letter-spacing: 0.15em; /* 字間を広げる */
 }
 
-/* 左下部のアクセントライン */
+/* 中央下部のアクセントライン */
 h2::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0;
-    transform: none;
+    left: 50%;
+    transform: translateX(-50%);
     width: 40px;
     height: 4px;
     background-color: #111;
@@ -413,13 +413,6 @@ a.work-card:hover .action-arrow {
     text-align: center;
     margin: 100px auto 60px;
     max-width: 450px;
-}
-#puzzle-section h2 {
-    text-align: center;
-}
-#puzzle-section h2::after {
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 /* ヒント解決時のスタイル（色を戻す） */
