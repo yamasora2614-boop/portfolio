@@ -90,7 +90,7 @@ header p {
 }
 
 h2 {
-    text-align: center;
+    text-align: left;
     font-size: 1.8em;
     font-weight: 600;
     color: #111;
@@ -101,13 +101,13 @@ h2 {
     letter-spacing: 0.15em; /* 字間を広げる */
 }
 
-/* 中央下部のアクセントライン */
+/* 左下部のアクセントライン */
 h2::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    transform: none;
     width: 40px;
     height: 4px;
     background-color: #111;
