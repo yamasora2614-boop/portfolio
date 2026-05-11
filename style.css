@@ -98,7 +98,7 @@ h2 {
     margin-bottom: 40px;
     position: relative;
     padding-bottom: 15px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em; /* 字間を広げる */
 }
 
 /* 中央下部のアクセントライン */
