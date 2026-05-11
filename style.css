@@ -275,7 +275,7 @@ a.work-card:hover .action-arrow {
     transform: translateX(6px); /* 右へ動く */
 }
 
-/* 11月祭（終了）のスタイル */
+/* １１月祭（終了）のスタイル */
 .work-card.ended {
     /* 画像や説明の色はそのまま */
 }
