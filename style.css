@@ -414,6 +414,13 @@ a.work-card:hover .action-arrow {
     margin: 100px auto 60px;
     max-width: 450px;
 }
+#puzzle-section h2 {
+    text-align: center;
+}
+#puzzle-section h2::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
 
 /* ヒント解決時のスタイル（色を戻す） */
 .en-instruction.hint-solved span {
