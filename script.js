@@ -411,6 +411,8 @@ async function handleCorrectSequence(word) {
     
     backdrop.classList.add('visible');
     
+    const h2 = worksSection.querySelector('h2');
+    
     if (count === 1) {
         const secretWork = document.createElement('a');
         secretWork.href = "javascript:void(0)";
@@ -432,12 +434,16 @@ async function handleCorrectSequence(word) {
             </div>
         `;
         
-        // 高さを正確に計算するために一旦見えない状態で追加
+        // --- 挿入位置を先頭（h2の直後）に変更 ---
+        if (h2 && h2.nextSibling) {
+            worksSection.insertBefore(secretWork, h2.nextSibling);
+        } else {
+            worksSection.prepend(secretWork);
+        }
+        
+        // 高さを正確に計算
         secretWork.style.visibility = 'hidden';
-        secretWork.style.position = 'absolute';
         secretWork.style.display = 'flex';
-        secretWork.style.width = worksSection.clientWidth + 'px'; // 親の幅に合わせる
-        worksSection.appendChild(secretWork);
         
         // 本来の高さを測定
         const targetHeight = secretWork.offsetHeight;
@@ -793,41 +799,45 @@ if (resetConfirm) {
 
 // WORKSセクションの折り畳み制御
 function initWorksToggle() {
-    const showMoreBtn = document.querySelector('.works-toggle-btn.more');
-    const closeBtns = document.querySelectorAll('.works-toggle-btn.top, .works-toggle-btn.bottom');
+    const btn = document.getElementById('works-toggle-btn-circle');
     const olderPart = document.getElementById('works-older-part');
-    const showMoreContainer = document.getElementById('works-show-more-container');
-    const topToggleContainer = document.getElementById('works-toggle-top-container');
-    const bottomToggleContainer = document.getElementById('works-toggle-bottom-container');
+    const fadeOverlay = document.getElementById('works-fade-overlay');
+    const toggleWrapper = document.getElementById('works-toggle-wrapper');
+    const worksSection = document.getElementById('works');
 
-    if (!showMoreBtn || !olderPart) return;
+    if (!btn || !olderPart) return;
 
-    function toggleWorks(show) {
-        if (show) {
-            olderPart.style.display = 'block';
-            showMoreContainer.style.display = 'none';
-            topToggleContainer.style.display = 'block';
-            bottomToggleContainer.style.display = 'block';
-            
-            // 展開時は最初のカードへスムーズにスクロール
-            const firstCard = olderPart.querySelector('.work-card');
-            if (firstCard) {
-                firstCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        } else {
+    btn.addEventListener('click', () => {
+        const isExpanded = olderPart.style.display === 'block';
+        
+        if (isExpanded) {
+            // 折り畳む
             olderPart.style.display = 'none';
-            showMoreContainer.style.display = 'block';
-            topToggleContainer.style.display = 'none';
-            bottomToggleContainer.style.display = 'none';
+            if (fadeOverlay) fadeOverlay.style.opacity = '1';
+            btn.querySelector('.arrow-icon').textContent = '∨';
             
-            // 折り畳み時はWORKSセクションの冒頭へ戻る
-            document.getElementById('works').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // ボタンを元の位置（older-part-wrapperの直後）に戻す
+            const wrapper = document.getElementById('works-older-part-wrapper');
+            if (wrapper && wrapper.nextSibling) {
+                worksSection.insertBefore(toggleWrapper, wrapper.nextSibling);
+            }
+            
+            // WORKSセクションの先頭へスクロール
+            worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            // 展開する
+            olderPart.style.display = 'block';
+            if (fadeOverlay) fadeOverlay.style.opacity = '0';
+            btn.querySelector('.arrow-icon').textContent = '∧';
+            
+            // ボタンを一番下（リセットコンテナの前）に移動
+            const resetContainer = document.getElementById('portfolio-reset-container');
+            if (resetContainer) {
+                worksSection.insertBefore(toggleWrapper, resetContainer);
+            } else {
+                worksSection.appendChild(toggleWrapper);
+            }
         }
-    }
-
-    showMoreBtn.addEventListener('click', () => toggleWorks(true));
-    closeBtns.forEach(btn => {
-        btn.addEventListener('click', () => toggleWorks(false));
     });
 }
 

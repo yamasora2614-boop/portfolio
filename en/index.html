@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sora Yamahira - Portfolio</title>
-    <link rel="stylesheet" href="../style.css?v=2.40">
+    <link rel="stylesheet" href="../style.css?v=2.50">
 </head>
 
 <body>
 
     <canvas id="bg-canvas"></canvas>
-    <script src="../script.js?v=2.40" defer></script>
+    <script src="../script.js?v=2.50" defer></script>
 
     <header>
         <div class="lang-switcher">
@@ -46,79 +46,21 @@
     <section id="works">
         <h2>WORKS</h2>
 
-        <!-- Toggle buttons (Only top shown when expanded) -->
-        <div id="works-toggle-top-container" class="works-toggle-container" style="display: none;">
-            <button class="works-toggle-btn top">Close</button>
-        </div>
-
-        <div id="works-older-part" style="display: none;">
-            <div class="work-card ended">
-                <div class="work-badge">Planner</div>
-                <div class="work-card-img">
-                    <img src="../img/mouse.png" alt="Mouse Brave and the Trap-filled Treasure Castle">
-                </div>
-                <div class="work-card-content">
-                    <h3>Mouse Brave and the Trap-filled Treasure Castle</h3>
-                    <div class="tag">Genre: Action | Platform: PC</div>
-                    <p>Exhibited at the Kyoto Computer Gakuin November Festival. The controls are mouse only. Collect treasures while evading various traps. (Available in Japanese only)</p>
-                </div>
-                <div class="work-card-action">
-                    <span class="action-text">Ended</span>
-                </div>
+        <a href="https://bitsummit-gamejam.itch.io/reframing" target="_blank" class="work-card">
+            <div class="work-badge">Planner & Designer</div>
+            <div class="work-card-img">
+                <img src="../img/reframing.png" alt="rEfrAMinG">
             </div>
-
-            <div class="work-card ended">
-                <div class="work-badge">Riddle Creator & Designer</div>
-                <div class="work-card-img">
-                    <img src="../img/november.png" alt="November Festival Riddle Challenge">
-                </div>
-                <div class="work-card-content">
-                    <h3>November Festival Riddle Challenge</h3>
-                    <div class="tag">Genre: Scavenger Hunt Riddle Game | Platform: School Festival</div>
-                    <p>An event held during the November 2025 school festival where participants explored the campus to solve riddles. (Available in Japanese only)</p>
-                </div>
-                <div class="work-card-action">
-                    <span class="action-text">Ended</span>
-                </div>
+            <div class="work-card-content">
+                <h3>rEfrAMinG</h3>
+                <div class="tag">Genre: Puzzle Action | Platform: PC</div>
+                <p>Exhibited at Bitsummit Game Jam 2026. Your real-world actions are reflected in the game world.</p>
             </div>
-
-            <a href="https://unityroom.com/games/gimission" target="_blank" class="work-card">
-                <div class="work-badge">Solo Project</div>
-                <div class="work-card-img">
-                    <img src="../img/gimissionicon.png" alt="GIMISSION">
-                </div>
-                <div class="work-card-content">
-                    <h3>GIMISSION</h3>
-                    <div class="tag">Genre: Casual | Platform: WebGL</div>
-                    <p>A multi-tasking game of chicken where you play a mini-game while trying to stop a timer at the very last second. (Available in Japanese only)</p>
-                </div>
-                <div class="work-card-action">
-                    <span class="action-text">View Project</span>
-                    <span class="action-arrow">→</span>
-                </div>
-            </a>
-
-            <a href="https://araradesu.github.io/framing/" target="_blank" class="work-card">
-                <div class="work-badge">Solo Project</div>
-                <div class="work-card-img">
-                    <img src="../img/framing.png" alt="framing">
-                </div>
-                <div class="work-card-content">
-                    <h3>framing</h3>
-                    <div class="tag">Genre: Riddle | Platform: Web</div>
-                    <p>Solve the five approaching riddles. (Available in Japanese only)</p>
-                </div>
-                <div class="work-card-action">
-                    <span class="action-text">View Project</span>
-                    <span class="action-arrow">→</span>
-                </div>
-            </a>
-        </div> <!-- /#works-older-part -->
-
-        <!-- See more button (Initial state) -->
-        <div id="works-show-more-container" class="works-toggle-container">
-            <button class="works-toggle-btn more">See other works</button>
-        </div>
+            <div class="work-card-action">
+                <span class="action-text">View Project</span>
+                <span class="action-arrow">→</span>
+            </div>
+        </a>
 
         <a href="https://araradesu.github.io/CreazySignup/" target="_blank" class="work-card">
             <div class="work-badge">Solo Project</div>
@@ -136,25 +78,79 @@
             </div>
         </a>
 
-        <a href="https://bitsummit-gamejam.itch.io/reframing" target="_blank" class="work-card">
-            <div class="work-badge">Planner & Designer</div>
-            <div class="work-card-img">
-                <img src="../img/reframing.png" alt="rEfrAMinG">
-            </div>
-            <div class="work-card-content">
-                <h3>rEfrAMinG</h3>
-                <div class="tag">Genre: Puzzle Action | Platform: PC</div>
-                <p>Exhibited at Bitsummit Game Jam 2026. Your real-world actions are reflected in the game world.</p>
-            </div>
-            <div class="work-card-action">
-                <span class="action-text">View Project</span>
-                <span class="action-arrow">→</span>
-            </div>
-        </a>
+        <div id="works-older-part-wrapper">
+            <div id="works-fade-overlay"></div>
 
-        <!-- Toggle buttons (Only bottom shown when expanded) -->
-        <div id="works-toggle-bottom-container" class="works-toggle-container" style="display: none;">
-            <button class="works-toggle-btn bottom">Close</button>
+            <a href="https://araradesu.github.io/framing/" target="_blank" class="work-card">
+                <div class="work-badge">Solo Project</div>
+                <div class="work-card-img">
+                    <img src="../img/framing.png" alt="framing">
+                </div>
+                <div class="work-card-content">
+                    <h3>framing</h3>
+                    <div class="tag">Genre: Riddle | Platform: Web</div>
+                    <p>Solve the five approaching riddles. (Available in Japanese only)</p>
+                </div>
+                <div class="work-card-action">
+                    <span class="action-text">View Project</span>
+                    <span class="action-arrow">→</span>
+                </div>
+            </a>
+
+            <div id="works-older-part" style="display: none;">
+                <a href="https://unityroom.com/games/gimission" target="_blank" class="work-card">
+                    <div class="work-badge">Solo Project</div>
+                    <div class="work-card-img">
+                        <img src="../img/gimissionicon.png" alt="GIMISSION">
+                    </div>
+                    <div class="work-card-content">
+                        <h3>GIMISSION</h3>
+                        <div class="tag">Genre: Casual | Platform: WebGL</div>
+                        <p>A multi-tasking game of chicken where you play a mini-game while trying to stop a timer at the very last second. (Available in Japanese only)</p>
+                    </div>
+                    <div class="work-card-action">
+                        <span class="action-text">View Project</span>
+                        <span class="action-arrow">→</span>
+                    </div>
+                </a>
+
+                <div class="work-card ended">
+                    <div class="work-badge">Riddle Creator & Designer</div>
+                    <div class="work-card-img">
+                        <img src="../img/november.png" alt="November Festival Riddle Challenge">
+                    </div>
+                    <div class="work-card-content">
+                        <h3>November Festival Riddle Challenge</h3>
+                        <div class="tag">Genre: Scavenger Hunt Riddle Game | Platform: School Festival</div>
+                        <p>An event held during the November 2025 school festival where participants explored the campus to solve riddles. (Available in Japanese only)</p>
+                    </div>
+                    <div class="work-card-action">
+                        <span class="action-text">Ended</span>
+                    </div>
+                </div>
+
+                <div class="work-card ended">
+                    <div class="work-badge">Planner</div>
+                    <div class="work-card-img">
+                        <img src="../img/mouse.png" alt="Mouse Brave and the Trap-filled Treasure Castle">
+                    </div>
+                    <div class="work-card-content">
+                        <h3>Mouse Brave and the Trap-filled Treasure Castle</h3>
+                        <div class="tag">Genre: Action | Platform: PC</div>
+                        <p>Exhibited at the Kyoto Computer Gakuin November Festival. The controls are mouse only. Collect treasures while evading various traps. (Available in Japanese only)</p>
+                    </div>
+                    <div class="work-card-action">
+                        <span class="action-text">Ended</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="works-toggle-wrapper">
+            <hr class="toggle-line">
+            <button id="works-toggle-btn-circle" class="works-toggle-btn-circle">
+                <span class="arrow-icon">∨</span>
+            </button>
         </div>
         
         <!-- 謎解きによるPortfolioカード挿入箇所、およびリセットボタン -->
