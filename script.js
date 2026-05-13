@@ -411,9 +411,12 @@ async function handleCorrectSequence(word) {
     
     backdrop.classList.add('visible');
     
-    const h2 = worksSection.querySelector('h2');
-    
     if (count === 1) {
+        // まずWORKSセクションの先頭（カードが出現する場所）へスクロール
+        worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        await delay(800); // スクロール完了を待つ
+
+        const h2 = worksSection.querySelector('h2');
         const secretWork = document.createElement('a');
         secretWork.href = "javascript:void(0)";
         secretWork.className = "work-card highlight-card progress-locked placeholder-mode";
