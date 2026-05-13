@@ -494,7 +494,11 @@ async function handleCorrectSequence(word) {
         actionArea.classList.remove('animating');
         secretWork.classList.remove('elevated-anim');
         
+        // 3番目の作品を折りたたみに移動
+        adjustWorksLayout();
+
         // リセットボタンを表示
+        const resetContainer = document.getElementById('portfolio-reset-container');
         if (resetContainer) {
             resetContainer.style.display = 'block';
             resetContainer.style.opacity = '0';
@@ -570,6 +574,31 @@ async function handleCorrectSequence(word) {
     }
     
     showExplanationModal(word);
+    
+    // 全ての演出が終わったらロックを解除
+    setScrollLock(false);
+}
+
+// Portfolio出現時、3番目の作品を折りたたみエリアに移動させる
+function adjustWorksLayout() {
+    const secretWork = document.getElementById('portfolio-secret-work');
+    const worksSection = document.getElementById('works');
+    const olderPart = document.getElementById('works-older-part');
+    const wrapper = document.getElementById('works-older-part-wrapper');
+    
+    if (!secretWork || !olderPart || !wrapper) return;
+
+    // 現在の表示されている（older-partの外にある）作品を取得
+    // h2とsecretWorkとwrapperを除いたwork-card
+    const visibleCards = Array.from(worksSection.querySelectorAll(':scope > .work-card'))
+                         .filter(card => card.id !== 'portfolio-secret-work');
+    
+    // Portfolioがある場合、外に出ている作品は2つにする（3つめ以降はolderPartへ）
+    if (visibleCards.length > 2) {
+        for (let i = 2; i < visibleCards.length; i++) {
+            olderPart.prepend(visibleCards[i]);
+        }
+    }
 }
 
 function showExplanationModal(type) {
@@ -701,6 +730,7 @@ function restorePuzzleUIState() {
     }
 
     secretWork.innerHTML = `
+        <div class="work-badge">${isEn ? 'Solo Project' : '個人製作'}</div>
         <div class="work-card-img">
             <img src="${isEn ? '../' : ''}img/portfolio.png" alt="Portfolio">
         </div>
@@ -711,14 +741,23 @@ function restorePuzzleUIState() {
         </div>
         ${actionHTML}
     `;
+    
+    // --- 挿入位置を先頭（h2の直後）に固定 ---
+    const h2 = worksSection.querySelector('h2');
+    if (h2) {
+        h2.insertAdjacentElement('afterend', secretWork);
+    } else {
+        worksSection.prepend(secretWork);
+    }
+    
     const resetContainer = document.getElementById('portfolio-reset-container');
     if (resetContainer) {
-        worksSection.insertBefore(secretWork, resetContainer);
         resetContainer.style.display = 'block';
         resetContainer.style.opacity = '1';
-    } else {
-        worksSection.appendChild(secretWork);
     }
+
+    // レイアウト調整（3番目を隠す）
+    adjustWorksLayout();
 
     if (count === 3) {
         secretWork.addEventListener('click', (e) => {
