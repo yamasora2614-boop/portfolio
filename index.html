@@ -45,69 +45,79 @@
     <section id="works">
         <h2>WORKS</h2>
 
-
-
-        <div class="work-card ended">
-            <div class="work-badge">プランナー</div>
-            <div class="work-card-img">
-                <img src="img/mouse.png" alt="ねずみ勇者と罠だらけの財宝城">
-            </div>
-            <div class="work-card-content">
-                <h3>ねずみ勇者と罠だらけの財宝城</h3>
-                <div class="tag">ジャンル：アクション | 媒体：PC</div>
-                <p>京都コンピュータ学院１１月祭にて出展。操作方法はマウスだけ。罠を避けて財宝をかき集める。</p>
-            </div>
-            <div class="work-card-action">
-                <span class="action-text">出展終了</span>
-            </div>
+        <!-- 折り畳みボタン（展開時のみ上に表示） -->
+        <div id="works-toggle-top-container" class="works-toggle-container" style="display: none;">
+            <button class="works-toggle-btn top">閉じる</button>
         </div>
 
-        <div class="work-card ended">
-            <div class="work-badge">謎制作・デザイナー</div>
-            <div class="work-card-img">
-                <img src="img/november.png" alt="１１月祭謎解き課題">
+        <div id="works-older-part" style="display: none;">
+            <div class="work-card ended">
+                <div class="work-badge">プランナー</div>
+                <div class="work-card-img">
+                    <img src="img/mouse.png" alt="ねずみ勇者と罠だらけの財宝城">
+                </div>
+                <div class="work-card-content">
+                    <h3>ねずみ勇者と罠だらけの財宝城</h3>
+                    <div class="tag">ジャンル：アクション | 媒体：PC</div>
+                    <p>京都コンピュータ学院１１月祭にて出展。操作方法はマウスだけ。罠を避けて財宝をかき集める。</p>
+                </div>
+                <div class="work-card-action">
+                    <span class="action-text">出展終了</span>
+                </div>
             </div>
-            <div class="work-card-content">
-                <h3>１１月祭謎解き課題</h3>
-                <div class="tag">ジャンル：周遊型謎解きゲーム | 媒体：学祭イベント</div>
-                <p>学院内を探索して謎を解く、2025年１１月祭で開催したイベント。</p>
+
+            <div class="work-card ended">
+                <div class="work-badge">謎制作・デザイナー</div>
+                <div class="work-card-img">
+                    <img src="img/november.png" alt="１１月祭謎解き課題">
+                </div>
+                <div class="work-card-content">
+                    <h3>１１月祭謎解き課題</h3>
+                    <div class="tag">ジャンル：周遊型謎解きゲーム | 媒体：学祭イベント</div>
+                    <p>学院内を探索して謎を解く、2025年１１月祭で開催したイベント。</p>
+                </div>
+                <div class="work-card-action">
+                    <span class="action-text">開催終了</span>
+                </div>
             </div>
-            <div class="work-card-action">
-                <span class="action-text">開催終了</span>
-            </div>
+
+            <a href="https://unityroom.com/games/gimission" target="_blank" class="work-card">
+                <div class="work-badge">個人製作</div>
+                <div class="work-card-img">
+                    <img src="img/gimissionicon.png" alt="GIMISSION">
+                </div>
+                <div class="work-card-content">
+                    <h3>GIMISSION</h3>
+                    <div class="tag">ジャンル：カジュアル | 媒体：WebGL</div>
+                    <p>ミニゲームしながらタイマーをぎりぎりで止める、マルチタスクでチキンレースなカジュアルゲーム。</p>
+                </div>
+                <div class="work-card-action">
+                    <span class="action-text">作品を見る</span>
+                    <span class="action-arrow">→</span>
+                </div>
+            </a>
+
+            <a href="https://araradesu.github.io/framing/" target="_blank" class="work-card">
+                <div class="work-badge">個人製作</div>
+                <div class="work-card-img">
+                    <img src="img/framing.png" alt="framing">
+                </div>
+                <div class="work-card-content">
+                    <h3>framing</h3>
+                    <div class="tag">ジャンル：謎解き | 媒体：Web</div>
+                    <p>やってくる５問の謎を解き明かす。</p>
+                </div>
+                <div class="work-card-action">
+                    <span class="action-text">作品を見る</span>
+                    <span class="action-arrow">→</span>
+                </div>
+            </a>
+        </div> <!-- /#works-older-part -->
+
+        <!-- 他の作品を見るボタン（初期表示） -->
+        <div id="works-show-more-container" class="works-toggle-container">
+            <button class="works-toggle-btn more">他の作品を見る</button>
         </div>
-
-        <a href="https://unityroom.com/games/gimission" target="_blank" class="work-card">
-            <div class="work-badge">個人製作</div>
-            <div class="work-card-img">
-                <img src="img/gimissionicon.png" alt="GIMISSION">
-            </div>
-            <div class="work-card-content">
-                <h3>GIMISSION</h3>
-                <div class="tag">ジャンル：カジュアル | 媒体：WebGL</div>
-                <p>ミニゲームしながらタイマーをぎりぎりで止める、マルチタスクでチキンレースなカジュアルゲーム。</p>
-            </div>
-            <div class="work-card-action">
-                <span class="action-text">作品を見る</span>
-                <span class="action-arrow">→</span>
-            </div>
-        </a>
-
-        <a href="https://araradesu.github.io/framing/" target="_blank" class="work-card">
-            <div class="work-badge">個人製作</div>
-            <div class="work-card-img">
-                <img src="img/framing.png" alt="framing">
-            </div>
-            <div class="work-card-content">
-                <h3>framing</h3>
-                <div class="tag">ジャンル：謎解き | 媒体：Web</div>
-                <p>やってくる５問の謎を解き明かす。</p>
-            </div>
-            <div class="work-card-action">
-                <span class="action-text">作品を見る</span>
-                <span class="action-arrow">→</span>
-            </div>
-        </a>
 
         <a href="https://araradesu.github.io/CreazySignup/" target="_blank" class="work-card">
             <div class="work-badge">個人製作</div>
@@ -140,6 +150,11 @@
                 <span class="action-arrow">→</span>
             </div>
         </a>
+
+        <!-- 折り畳みボタン（展開時のみ下に表示） -->
+        <div id="works-toggle-bottom-container" class="works-toggle-container" style="display: none;">
+            <button class="works-toggle-btn bottom">閉じる</button>
+        </div>
         
         <!-- 謎解きによるPortfolioカード挿入箇所、およびリセットボタン -->
         <div id="portfolio-reset-container" style="display: none; opacity: 0;">
@@ -153,7 +168,7 @@
         <div class="puzzle-instructions">
             <p class="jp-instruction">英語四文字で答えよ</p>
             <p class="en-instruction">
-                Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span><span class="color-yellow"><strong>r</strong></span> <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tt<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span>s.
+                Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span><span class="color-yellow"><strong>r</strong></span> <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tt<span class="color-green"><strong>e</strong></span><span class="color-green"><strong>r</strong></span><span class="color-yellow"><strong>s</strong></span>.
             </p>
         </div>
         <div class="puzzle-input-wrapper">

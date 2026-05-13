@@ -791,5 +791,46 @@ if (resetConfirm) {
     });
 }
 
+// WORKSセクションの折り畳み制御
+function initWorksToggle() {
+    const showMoreBtn = document.querySelector('.works-toggle-btn.more');
+    const closeBtns = document.querySelectorAll('.works-toggle-btn.top, .works-toggle-btn.bottom');
+    const olderPart = document.getElementById('works-older-part');
+    const showMoreContainer = document.getElementById('works-show-more-container');
+    const topToggleContainer = document.getElementById('works-toggle-top-container');
+    const bottomToggleContainer = document.getElementById('works-toggle-bottom-container');
+
+    if (!showMoreBtn || !olderPart) return;
+
+    function toggleWorks(show) {
+        if (show) {
+            olderPart.style.display = 'block';
+            showMoreContainer.style.display = 'none';
+            topToggleContainer.style.display = 'block';
+            bottomToggleContainer.style.display = 'block';
+            
+            // 展開時は最初のカードへスムーズにスクロール
+            const firstCard = olderPart.querySelector('.work-card');
+            if (firstCard) {
+                firstCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        } else {
+            olderPart.style.display = 'none';
+            showMoreContainer.style.display = 'block';
+            topToggleContainer.style.display = 'none';
+            bottomToggleContainer.style.display = 'none';
+            
+            // 折り畳み時はWORKSセクションの冒頭へ戻る
+            document.getElementById('works').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    showMoreBtn.addEventListener('click', () => toggleWorks(true));
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', () => toggleWorks(false));
+    });
+}
+
 // 初期化実行
+initWorksToggle();
 initPuzzleProgress();

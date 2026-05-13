@@ -133,6 +133,46 @@ h2::after {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
 }
 
+/* 折り畳みトグルボタンのコンテナ */
+.works-toggle-container {
+    text-align: center;
+    margin: 30px 0 50px;
+}
+
+.works-toggle-btn {
+    background: rgba(17, 17, 17, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #111;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 0.9em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.05em;
+}
+
+.works-toggle-btn:hover {
+    background: #111;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.works-toggle-btn.top, .works-toggle-btn.bottom {
+    font-size: 0.85em;
+    padding: 10px 24px;
+    background: rgba(17, 17, 17, 0.03);
+    margin-bottom: 30px;
+}
+
+#works-toggle-bottom-container {
+    margin-top: 10px;
+}
+
 a.work-card {
     text-decoration: none;
     color: inherit;
