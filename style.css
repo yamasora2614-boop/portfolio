@@ -147,6 +147,24 @@ a.work-card {
     align-items: stretch;
     padding: 0;
     overflow: hidden; /* 角丸を保つため */
+    position: relative; /* バッジの基準点 */
+}
+
+/* 役割バッジ */
+.work-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(17, 17, 17, 0.8);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.05em;
 }
 
 a.work-card:hover {
