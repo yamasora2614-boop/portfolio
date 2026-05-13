@@ -136,19 +136,21 @@ h2::after {
 /* 折り畳みトグルUI */
 #works-older-part-wrapper {
     position: relative;
-    overflow: hidden;
+    overflow: visible; /* スムーズなアニメーションのため */
 }
 
-#works-fade-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 150px;
-    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.9));
-    z-index: 5;
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+}
+
+.collapsible-content.expanded {
+    max-height: 2000px; /* 十分な高さ。JSで詳細制御可能 */
+    opacity: 1;
+    pointer-events: auto;
 }
 
 #works-toggle-wrapper {

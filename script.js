@@ -434,36 +434,26 @@ async function handleCorrectSequence(word) {
             </div>
         `;
         
-        // --- 挿入位置を先頭（h2の直後）に変更 ---
-        if (h2 && h2.nextSibling) {
-            worksSection.insertBefore(secretWork, h2.nextSibling);
+        // --- 挿入位置を先頭（h2の直後）に固定 ---
+        if (h2) {
+            h2.insertAdjacentElement('afterend', secretWork);
         } else {
             worksSection.prepend(secretWork);
         }
         
-        // 高さを正確に計算
-        secretWork.style.visibility = 'hidden';
+        // 高さを正確に計算するため、一時的に表示して測定
         secretWork.style.display = 'flex';
-        
-        // 本来の高さを測定
+        secretWork.style.visibility = 'hidden';
         const targetHeight = secretWork.offsetHeight;
         
         // アニメーションの初期状態にリセット
-        secretWork.style.position = '';
         secretWork.style.visibility = '';
-        secretWork.style.width = '';
+        secretWork.style.display = 'flex';
         secretWork.style.overflow = 'hidden';
         secretWork.style.height = '0px';
         secretWork.style.marginBottom = '0px';
         secretWork.style.opacity = '0';
         secretWork.style.transition = 'height 1.5s cubic-bezier(0.4, 0, 0.2, 1), margin-bottom 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease-in-out 0.5s';
-        
-        const resetContainer = document.getElementById('portfolio-reset-container');
-        if (resetContainer) {
-            worksSection.insertBefore(secretWork, resetContainer);
-        } else {
-            worksSection.appendChild(secretWork);
-        }
         
         // リフローを強制
         void secretWork.offsetHeight;
@@ -801,22 +791,21 @@ if (resetConfirm) {
 function initWorksToggle() {
     const btn = document.getElementById('works-toggle-btn-circle');
     const olderPart = document.getElementById('works-older-part');
-    const fadeOverlay = document.getElementById('works-fade-overlay');
     const toggleWrapper = document.getElementById('works-toggle-wrapper');
     const worksSection = document.getElementById('works');
 
     if (!btn || !olderPart) return;
 
     btn.addEventListener('click', () => {
-        const isExpanded = olderPart.style.display === 'block';
+        const isExpanded = olderPart.classList.contains('expanded');
         
         if (isExpanded) {
             // 折り畳む
-            olderPart.style.display = 'none';
-            if (fadeOverlay) fadeOverlay.style.opacity = '1';
+            olderPart.style.maxHeight = '0px';
+            olderPart.classList.remove('expanded');
             btn.querySelector('.arrow-icon').textContent = '∨';
             
-            // ボタンを元の位置（older-part-wrapperの直後）に戻す
+            // ボタンを元の位置に戻す（older-part-wrapperの直後）
             const wrapper = document.getElementById('works-older-part-wrapper');
             if (wrapper && wrapper.nextSibling) {
                 worksSection.insertBefore(toggleWrapper, wrapper.nextSibling);
@@ -826,8 +815,10 @@ function initWorksToggle() {
             worksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
             // 展開する
-            olderPart.style.display = 'block';
-            if (fadeOverlay) fadeOverlay.style.opacity = '0';
+            // 内容物の高さを取得して設定
+            const contentHeight = olderPart.scrollHeight;
+            olderPart.style.maxHeight = contentHeight + 'px';
+            olderPart.classList.add('expanded');
             btn.querySelector('.arrow-icon').textContent = '∧';
             
             // ボタンを一番下（リセットコンテナの前）に移動
