@@ -219,21 +219,36 @@ a.work-card {
     position: relative; /* バッジの基準点 */
 }
 
-/* 役割バッジ */
-.work-badge {
+/* 作品カード内のバッジコンテナ */
+.work-badges-container {
     position: absolute;
     top: 15px;
     right: 15px;
-    background: rgba(17, 17, 17, 0.8);
-    color: #fff;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+/* 役割バッジ & プレイ可能バッジ 共通 */
+.work-badge, .playable-badge {
     padding: 4px 12px;
     border-radius: 4px;
-    font-size: 0.7rem;
-    font-weight: 500;
-    z-index: 10;
+    font-size: 0.75em;
+    font-weight: bold;
+    color: #fff;
+    white-space: nowrap;
     backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     letter-spacing: 0.05em;
+}
+
+.work-badge {
+    background: rgba(17, 17, 17, 0.8);
+}
+
+.playable-badge {
+    background: linear-gradient(135deg, #ff8c00, #ff4500);
+    box-shadow: 0 2px 10px rgba(255, 140, 0, 0.3);
 }
 
 a.work-card:hover {

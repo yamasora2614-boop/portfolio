@@ -422,7 +422,9 @@ async function handleCorrectSequence(word) {
         secretWork.className = "work-card highlight-card progress-locked placeholder-mode";
         secretWork.id = "portfolio-secret-work";
         secretWork.innerHTML = `
-            <div class="work-badge">${isEn ? 'Solo Project' : '個人製作'}</div>
+            <div class="work-badges-container">
+                <div class="work-badge">${isEn ? 'Solo Project' : '個人製作'}</div>
+            </div>
             <div class="work-card-img">
                 <img src="${isEn ? '../' : ''}img/portfolio.png" alt="Portfolio">
             </div>
@@ -733,7 +735,9 @@ function restorePuzzleUIState() {
     }
 
     secretWork.innerHTML = `
-        <div class="work-badge">${isEn ? 'Solo Project' : '個人製作'}</div>
+        <div class="work-badges-container">
+            <div class="work-badge">${isEn ? 'Solo Project' : '個人製作'}</div>
+        </div>
         <div class="work-card-img">
             <img src="${isEn ? '../' : ''}img/portfolio.png" alt="Portfolio">
         </div>
