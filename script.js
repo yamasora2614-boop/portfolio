@@ -278,17 +278,23 @@ const explanationsJP = {
     rule: `
         <p><strong>【１問目　Lv.★☆☆】</strong></p>
         <p>解答欄の上に書かれた問題文<br>
-        「Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span><span class="color-yellow"><strong>r</strong></span> <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tt<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span>s.」の色のついた文字を拾う。</p>
+        「Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span>r <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tters.」の文字を拾う。</p>
         <p class="answer-text">答えは「<strong>RULE</strong>」。</p>
     `,
     main: `
         <p><strong>【２問目　Lv.★★☆】</strong></p>
-        <p>「framing」の謎画像（解かれていない状態の作品画像）にあるタイトルロゴで、解答欄と同じ４色の文字を「黄→紫→青→緑」の順に拾う。</p>
+        <p>『framing』のタイトルロゴに使用されている文字を拾う。</p>
         <p>
-            黄色の文字 ＝ <strong>m</strong><br>
-            紫色の文字 ＝ <strong>a</strong><br>
-            青色の文字 ＝ <strong>i</strong><br>
-            緑色の文字 ＝ <strong>n</strong>
+            『framing』の文字は、１文字目から順に以下の配色になっている。<br>
+            <strong>f</strong>（赤）・<strong>r</strong>（橙）・<strong>a</strong>（紫）・<strong>m</strong>（黄）・<strong>i</strong>（青）・<strong>n</strong>（緑）・<strong>g</strong>（灰）
+        </p>
+        <p>
+            解答欄と同じ４色の文字を「黄→紫→青→緑」の順に拾うと、<br>
+            黄（4文字目） ＝ <strong>m</strong><br>
+            紫（3文字目） ＝ <strong>a</strong><br>
+            青（5文字目） ＝ <strong>i</strong><br>
+            緑（6文字目） ＝ <strong>n</strong><br>
+            となる。
         </p>
         <p class="answer-text">答えは「<strong>MAIN</strong>」。</p>
     `,
@@ -317,17 +323,22 @@ const explanationsEN = {
     rule: `
         <p><strong>[ Question 1 - Lv.★☆☆ ]</strong></p>
         <p>Look at the question text above the answer field.<br>
-        Extract the colored letters from "Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span><span class="color-yellow"><strong>r</strong></span> <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tt<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span>s."</p>
+        Extract the colored letters from "Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span>r <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tters."</p>
         <p class="answer-text">The answer is "<strong>RULE</strong>".</p>
     `,
     main: `
         <p><strong>[ Question 2 - Lv.★★☆ ]</strong></p>
-        <p>In the title logo of the "framing" mystery image (shown when the riddle is unsolved), extract the letters colored with the same four colors in the order "Yellow &rarr; Purple &rarr; Blue &rarr; Green".</p>
+        <p>Extract the letters used in the title logo of "framing".</p>
         <p>
-            Yellow letter = <strong>m</strong><br>
-            Purple letter = <strong>a</strong><br>
-            Blue letter = <strong>i</strong><br>
-            Green letter = <strong>n</strong>
+            The letters of "framing" are colored from left to right as follows:<br>
+            <strong>f</strong> (Red), <strong>r</strong> (Orange), <strong>a</strong> (Purple), <strong>m</strong> (Yellow), <strong>i</strong> (Blue), <strong>n</strong> (Green), <strong>g</strong> (Gray).
+        </p>
+        <p>
+            Extracting the letters that match the colors of the answer field in the order "Yellow &rarr; Purple &rarr; Blue &rarr; Green":<br>
+            Yellow (4th) = <strong>m</strong><br>
+            Purple (3rd) = <strong>a</strong><br>
+            Blue (5th) = <strong>i</strong><br>
+            Green (6th) = <strong>n</strong>
         </p>
         <p class="answer-text">The answer is "<strong>MAIN</strong>".</p>
     `,
