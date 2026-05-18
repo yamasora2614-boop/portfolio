@@ -283,19 +283,7 @@ const explanationsJP = {
     `,
     main: `
         <p><strong>【２問目　Lv.★★☆】</strong></p>
-        <p>『framing』のタイトルロゴに使用されている文字を拾う。</p>
-        <p>
-            『framing』の文字は、１文字目から順に以下の配色になっている。<br>
-            <strong>f</strong>（赤）・<strong>r</strong>（橙）・<strong>a</strong>（紫）・<strong>m</strong>（黄）・<strong>i</strong>（青）・<strong>n</strong>（緑）・<strong>g</strong>（灰）
-        </p>
-        <p>
-            解答欄と同じ４色の文字を「黄→紫→青→緑」の順に拾うと、<br>
-            黄（4文字目） ＝ <strong>m</strong><br>
-            紫（3文字目） ＝ <strong>a</strong><br>
-            青（5文字目） ＝ <strong>i</strong><br>
-            緑（6文字目） ＝ <strong>n</strong><br>
-            となる。
-        </p>
+        <p>『<span class="color-red">f</span><span class="color-orange">r</span><span class="color-purple">a</span><span class="color-yellow">m</span><span class="color-blue">i</span><span class="color-green">n</span><span class="color-gray">g</span>』のタイトルロゴに使用されている文字を拾う。</p>
         <p class="answer-text">答えは「<strong>MAIN</strong>」。</p>
     `,
     open: `
@@ -328,18 +316,7 @@ const explanationsEN = {
     `,
     main: `
         <p><strong>[ Question 2 - Lv.★★☆ ]</strong></p>
-        <p>Extract the letters used in the title logo of "framing".</p>
-        <p>
-            The letters of "framing" are colored from left to right as follows:<br>
-            <strong>f</strong> (Red), <strong>r</strong> (Orange), <strong>a</strong> (Purple), <strong>m</strong> (Yellow), <strong>i</strong> (Blue), <strong>n</strong> (Green), <strong>g</strong> (Gray).
-        </p>
-        <p>
-            Extracting the letters that match the colors of the answer field in the order "Yellow &rarr; Purple &rarr; Blue &rarr; Green":<br>
-            Yellow (4th) = <strong>m</strong><br>
-            Purple (3rd) = <strong>a</strong><br>
-            Blue (5th) = <strong>i</strong><br>
-            Green (6th) = <strong>n</strong>
-        </p>
+        <p>Extract the letters used in the title logo of "<span class="color-red">f</span><span class="color-orange">r</span><span class="color-purple">a</span><span class="color-yellow">m</span><span class="color-blue">i</span><span class="color-green">n</span><span class="color-gray">g</span>".</p>
         <p class="answer-text">The answer is "<strong>MAIN</strong>".</p>
     `,
     open: `

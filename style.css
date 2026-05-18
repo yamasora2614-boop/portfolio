@@ -775,6 +775,9 @@ a.work-card:hover .action-arrow {
 .color-purple { color: #8c3cc8; }
 .color-blue { color: #2878dc; }
 .color-green { color: #32b450; }
+.color-red { color: #e63946; }
+.color-orange { color: #f48024; }
+.color-gray { color: #888888; }
 
 .hidden-error {
     color: #e63946;
