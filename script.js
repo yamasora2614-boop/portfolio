@@ -2,7 +2,7 @@ const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 
 // --- 謎解きの判定・状態保持（初期化より前に必要） ---
-const TARGET_ANSWERS = ['open', 'rule', 'text'];
+const TARGET_ANSWERS = ['open', 'rule', 'main'];
 const solvedWords = new Set();
 const isEn = document.documentElement.lang === 'en';
 
@@ -205,6 +205,16 @@ function updateHintEffects() {
         }
     }
     
+    // --- MAIN: framing画像の切り替え ---
+    const framingImg = document.getElementById('work-img-framing');
+    if (framingImg) {
+        if (solvedWords.has('main')) {
+            framingImg.src = isEn ? '../img/framing.png' : 'img/framing.png';
+        } else {
+            framingImg.src = isEn ? '../img/framingMYS.png' : 'img/framingMYS.png';
+        }
+    }
+    
     // --- OPEN: 背景の図形再生成 ---
     // initParticles()の中でsolvedWordsを判定しているため、呼び直すだけで条件に合わせて再配置される
     initParticles();
@@ -271,9 +281,16 @@ const explanationsJP = {
         「Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span><span class="color-yellow"><strong>r</strong></span> <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tt<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span>s.」の色のついた文字を拾う。</p>
         <p class="answer-text">答えは「<strong>RULE</strong>」。</p>
     `,
-    text: `
+    main: `
         <p><strong>【２問目　Lv.★★☆】</strong></p>
-        <p>（未記入）</p>
+        <p>「framing」の謎画像（解かれていない状態の作品画像）にあるタイトルロゴで、解答欄と同じ４色の文字を「黄→紫→青→緑」の順に拾う。</p>
+        <p>
+            黄色の文字 ＝ <strong>m</strong><br>
+            紫色の文字 ＝ <strong>a</strong><br>
+            青色の文字 ＝ <strong>i</strong><br>
+            緑色の文字 ＝ <strong>n</strong>
+        </p>
+        <p class="answer-text">答えは「<strong>MAIN</strong>」。</p>
     `,
     open: `
         <p><strong>【３問目　Lv.★★★】</strong></p>
@@ -303,9 +320,16 @@ const explanationsEN = {
         Extract the colored letters from "Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span><span class="color-yellow"><strong>r</strong></span> <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tt<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span>s."</p>
         <p class="answer-text">The answer is "<strong>RULE</strong>".</p>
     `,
-    text: `
+    main: `
         <p><strong>[ Question 2 - Lv.★★☆ ]</strong></p>
-        <p>(Blank)</p>
+        <p>In the title logo of the "framing" mystery image (shown when the riddle is unsolved), extract the letters colored with the same four colors in the order "Yellow &rarr; Purple &rarr; Blue &rarr; Green".</p>
+        <p>
+            Yellow letter = <strong>m</strong><br>
+            Purple letter = <strong>a</strong><br>
+            Blue letter = <strong>i</strong><br>
+            Green letter = <strong>n</strong>
+        </p>
+        <p class="answer-text">The answer is "<strong>MAIN</strong>".</p>
     `,
     open: `
         <p><strong>[ Question 3 - Lv.★★★ ]</strong></p>
@@ -614,7 +638,7 @@ function showExplanationModal(type) {
         expContainer.innerHTML = explanations['final_prefix'] + 
                                  explanations['rule'] + 
                                  '<hr style="border:none; border-top:1px dashed #ccc; margin: 30px 0;">' + 
-                                 explanations['text'] + 
+                                 explanations['main'] + 
                                  '<hr style="border:none; border-top:1px dashed #ccc; margin: 30px 0;">' + 
                                  explanations['open'];
     } else {
