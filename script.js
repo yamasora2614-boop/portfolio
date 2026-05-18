@@ -278,7 +278,7 @@ const explanationsJP = {
     rule: `
         <p><strong>【１問目　Lv.★☆☆】</strong></p>
         <p>解答欄の上に書かれた問題文<br>
-        「Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span>r <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tters.」の文字を拾う。</p>
+        「Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span><span class="color-yellow"><strong>r</strong></span> <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tt<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span>s.」の文字を拾う。</p>
         <p class="answer-text">答えは「<strong>RULE</strong>」。</p>
     `,
     main: `
@@ -323,7 +323,7 @@ const explanationsEN = {
     rule: `
         <p><strong>[ Question 1 - Lv.★☆☆ ]</strong></p>
         <p>Look at the question text above the answer field.<br>
-        Extract the colored letters from "Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span>r <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tters."</p>
+        Extract the colored letters from "Answ<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span> in fo<span class="color-purple"><strong>u</strong></span><span class="color-yellow"><strong>r</strong></span> <span class="color-blue"><strong>l</strong></span><span class="color-green"><strong>e</strong></span>tt<span class="color-green"><strong>e</strong></span><span class="color-yellow"><strong>r</strong></span>s."</p>
         <p class="answer-text">The answer is "<strong>RULE</strong>".</p>
     `,
     main: `
