@@ -486,8 +486,8 @@ async function handleCorrectSequence(word) {
         // 空間が開ききるのを待つ
         await delay(1500);
         
-        // 展開しきってから、ゲージ部分を中心にスクロール
-        document.getElementById('portfolio-action').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // 展開しきってから、カード全体を中心にスクロール
+        secretWork.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
         // 光の演出を見せる
         await delay(800);
@@ -528,7 +528,7 @@ async function handleCorrectSequence(word) {
     } else {
         const secretWork = document.getElementById('portfolio-secret-work');
         secretWork.classList.add('highlight-card');
-        document.getElementById('portfolio-action').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        secretWork.scrollIntoView({ behavior: 'smooth', block: 'center' });
         await delay(1000); // スクロール完了をゆったり待つ
         
         const actionArea = document.getElementById('portfolio-action');

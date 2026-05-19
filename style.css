@@ -508,6 +508,12 @@ a.work-card:hover .action-arrow {
         margin-top: 5px;
         padding-right: 20px; /* 右上ボタンに被らないように */
     }
+    
+    /* モバイルでのゲージ上昇中アニメーション（画面外にはみ出さないようスケールを抑える） */
+    .work-card.elevated-anim {
+        transform: scale(1.02);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    }
 }
 
 /* 謎解きセクション */
