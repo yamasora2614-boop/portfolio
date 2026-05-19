@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>山平遡羅 - Portfolio</title>
-    <link rel="stylesheet" href="style.css?v=2.80">
+    <link rel="stylesheet" href="style.css?v=2.70">
 </head>
 
 <body>
 
     <canvas id="bg-canvas"></canvas>
-    <script src="script.js?v=2.80" defer></script>
+    <script src="script.js?v=2.70" defer></script>
 
     <header>
         <div class="lang-switcher">
@@ -230,14 +230,17 @@
             <h2 style="font-family: 'Outfit', 'Zen Kaku Gothic New', sans-serif; font-weight: 800; border-bottom: 2px solid #111; padding-bottom: 10px; margin-bottom: 25px;">見つけ出してくれたあなたへ</h2>
             <div class="puzzle-explanation" style="background: none; padding: 0; margin-bottom: 0;">
                 <!-- 画像2枚横並び -->
-                <div class="cardboard-images" style="display: flex; gap: 15px; justify-content: center; margin-bottom: 25px; flex-wrap: wrap;">
-                    <img src="img/CardboardFront.png" alt="Cardboard Front" style="max-width: calc(50% - 10px); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); width: 100%; object-fit: contain;">
-                    <img src="img/CardboardBack.png" alt="Cardboard Back" style="max-width: calc(50% - 10px); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); width: 100%; object-fit: contain;">
+                <div class="cardboard-images">
+                    <img src="img/CardboardFront.png" alt="Cardboard Front" class="cardboard-image-front">
+                    <img src="img/CardboardBack.png" alt="Cardboard Back" class="cardboard-image-back">
                 </div>
                 <div style="font-family: 'Zen Kaku Gothic New', sans-serif; line-height: 1.8; color: #333;">
                     <p style="margin-bottom: 15px;">特に、私の名刺を何らかの方法で手にしたあなたへ。</p>
                     <p style="margin-bottom: 15px;">名刺の裏面(二次元コードがある側)が見えるように持った状態で、<strong>光に透かしてみてください。</strong></p>
                     <p style="margin-bottom: 0;">謎を解き明かしてくれたあなたへのメッセージが浮かび上がるはずです！</p>
+                </div>
+                <div class="cardboard-actions">
+                    <button id="cardboard-hint-btn" class="hint-toggle-btn">良く分からない / 名刺を持っていない</button>
                 </div>
             </div>
         </div>

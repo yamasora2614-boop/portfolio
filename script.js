@@ -911,6 +911,23 @@ function closeCardboardModal() {
         overlay.classList.remove('visible');
         setTimeout(() => {
             setScrollLock(false);
+            
+            // 閉じた際に名刺透かしモードの状態をリセットする
+            const hintBtn = document.getElementById('cardboard-hint-btn');
+            const imagesContainer = document.querySelector('.cardboard-images');
+            if (hintBtn) hintBtn.classList.remove('active');
+            if (imagesContainer) {
+                imagesContainer.classList.remove('stacked-mode');
+                const frontImg = imagesContainer.querySelector('.cardboard-image-front');
+                const backImg = imagesContainer.querySelector('.cardboard-image-back');
+                if (frontImg) {
+                    frontImg.style.transition = 'none';
+                    frontImg.classList.remove('flipped-mode');
+                    void frontImg.offsetWidth;
+                    frontImg.style.transition = '';
+                }
+                if (backImg) backImg.classList.remove('translucent-mode');
+            }
         }, 500);
     }
 }
@@ -918,6 +935,7 @@ function closeCardboardModal() {
 function initCardboardModal() {
     const closeBtn = document.getElementById('cardboard-close-top');
     const overlay = document.getElementById('cardboard-overlay');
+    const hintBtn = document.getElementById('cardboard-hint-btn');
     
     if (closeBtn) {
         closeBtn.addEventListener('click', closeCardboardModal);
@@ -926,6 +944,48 @@ function initCardboardModal() {
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) {
                 closeCardboardModal();
+            }
+        });
+    }
+    if (hintBtn) {
+        hintBtn.addEventListener('click', () => {
+            const isActive = hintBtn.classList.toggle('active');
+            const imagesContainer = document.querySelector('.cardboard-images');
+            if (imagesContainer) {
+                const frontImg = imagesContainer.querySelector('.cardboard-image-front');
+                const backImg = imagesContainer.querySelector('.cardboard-image-back');
+                if (isActive) {
+                    imagesContainer.classList.add('stacked-mode');
+                    // 重なり終わってから反転・透過させる (CSS transition duration is 0.6s)
+                    setTimeout(() => {
+                        if (imagesContainer.classList.contains('stacked-mode')) {
+                            if (frontImg) {
+                                frontImg.style.transition = 'none';
+                                frontImg.classList.add('flipped-mode');
+                                void frontImg.offsetWidth;
+                                frontImg.style.transition = '';
+                            }
+                            if (backImg) {
+                                backImg.classList.add('translucent-mode');
+                            }
+                        }
+                    }, 600);
+                } else {
+                    // 戻る時はまず反転と透過を解除してから移動
+                    if (backImg) {
+                        backImg.style.transition = 'none';
+                        backImg.classList.remove('translucent-mode');
+                        void backImg.offsetWidth;
+                        backImg.style.transition = '';
+                    }
+                    if (frontImg) {
+                        frontImg.style.transition = 'none';
+                        frontImg.classList.remove('flipped-mode');
+                        void frontImg.offsetWidth;
+                        frontImg.style.transition = '';
+                    }
+                    imagesContainer.classList.remove('stacked-mode');
+                }
             }
         });
     }
