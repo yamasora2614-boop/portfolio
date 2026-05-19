@@ -435,6 +435,7 @@ async function handleCorrectSequence(word) {
         secretWork.id = "portfolio-secret-work";
         secretWork.innerHTML = `
             <div class="work-badges-container">
+                <div class="playable-badge special-blue-badge" onclick="showCardboardModal(event)">${isEn ? 'Tap Here' : '押して'}</div>
                 <div class="work-badge">${isEn ? 'Solo Project' : '個人製作'}</div>
             </div>
             <div class="work-card-img">
@@ -748,6 +749,7 @@ function restorePuzzleUIState() {
 
     secretWork.innerHTML = `
         <div class="work-badges-container">
+            <div class="playable-badge special-blue-badge" onclick="showCardboardModal(event)">${isEn ? 'Tap Here' : '押して'}</div>
             <div class="work-badge">${isEn ? 'Solo Project' : '個人製作'}</div>
         </div>
         <div class="work-card-img">
@@ -890,6 +892,46 @@ function initWorksToggle() {
     });
 }
 
+// カードボード（名刺）メッセージ用モーダルの制御
+function showCardboardModal(event) {
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    const overlay = document.getElementById('cardboard-overlay');
+    if (overlay) {
+        setScrollLock(true);
+        overlay.classList.add('visible');
+    }
+}
+
+function closeCardboardModal() {
+    const overlay = document.getElementById('cardboard-overlay');
+    if (overlay) {
+        overlay.classList.remove('visible');
+        setTimeout(() => {
+            setScrollLock(false);
+        }, 500);
+    }
+}
+
+function initCardboardModal() {
+    const closeBtn = document.getElementById('cardboard-close-top');
+    const overlay = document.getElementById('cardboard-overlay');
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeCardboardModal);
+    }
+    if (overlay) {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closeCardboardModal();
+            }
+        });
+    }
+}
+
 // 初期化実行
 initWorksToggle();
 initPuzzleProgress();
+initCardboardModal();

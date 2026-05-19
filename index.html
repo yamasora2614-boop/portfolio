@@ -223,6 +223,26 @@
         </div>
     </div>
 
+    <!-- 名刺の裏側・隠しメッセージ用のモーダル -->
+    <div id="cardboard-overlay">
+        <div class="puzzle-modal">
+            <button id="cardboard-close-top" class="puzzle-close-top-btn">&times;</button>
+            <h2 style="font-family: 'Outfit', 'Zen Kaku Gothic New', sans-serif; font-weight: 800; border-bottom: 2px solid #111; padding-bottom: 10px; margin-bottom: 25px;">見つけ出してくれたあなたへ</h2>
+            <div class="puzzle-explanation" style="background: none; padding: 0; margin-bottom: 0;">
+                <!-- 画像2枚横並び -->
+                <div class="cardboard-images" style="display: flex; gap: 15px; justify-content: center; margin-bottom: 25px; flex-wrap: wrap;">
+                    <img src="img/CardboardFront.png" alt="Cardboard Front" style="max-width: calc(50% - 10px); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); width: 100%; object-fit: contain;">
+                    <img src="img/CardboardBack.png" alt="Cardboard Back" style="max-width: calc(50% - 10px); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); width: 100%; object-fit: contain;">
+                </div>
+                <div style="font-family: 'Zen Kaku Gothic New', sans-serif; line-height: 1.8; color: #333;">
+                    <p style="margin-bottom: 15px;">特に、私の名刺を何らかの方法で手にしたあなたへ。</p>
+                    <p style="margin-bottom: 15px;">名刺の裏面(二次元コードがある側)が見えるように持った状態で、<strong>光に透かしてみてください。</strong></p>
+                    <p style="margin-bottom: 0;">謎を解き明かしてくれたあなたへのメッセージが浮かび上がるはずです！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

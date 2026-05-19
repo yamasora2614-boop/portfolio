@@ -779,6 +779,47 @@ a.work-card:hover .action-arrow {
 .color-orange { color: #f48024; }
 .color-gray { color: #888888; }
 
+/* 「押して」バッジ（青色） */
+.special-blue-badge {
+    background: linear-gradient(135deg, #2878dc, #0052b4);
+    box-shadow: 0 2px 10px rgba(40, 120, 220, 0.3);
+    border: 1px solid rgba(40, 120, 220, 0.4);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    pointer-events: auto; /* progress-locked対策 */
+}
+.special-blue-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(40, 120, 220, 0.5);
+}
+
+/* カードボード（名刺）用モーダル */
+#cardboard-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+#cardboard-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+#cardboard-overlay.visible .puzzle-modal {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
 .hidden-error {
     color: #e63946;
     font-size: 0.9em;
