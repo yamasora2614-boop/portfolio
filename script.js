@@ -991,7 +991,26 @@ function initCardboardModal() {
     }
 }
 
+// 展示期間を過ぎた作品の表示を切り替える
+function updateExhibitionStatuses() {
+    const now = Date.now();
+
+    document.querySelectorAll('[data-exhibition-end]').forEach((card) => {
+        const endAt = Date.parse(card.dataset.exhibitionEnd);
+        const actionText = card.querySelector('.action-text');
+        const hasEnded = Number.isFinite(endAt) && now >= endAt;
+
+        card.classList.toggle('ended', hasEnded);
+        if (actionText) {
+            actionText.textContent = hasEnded
+                ? card.dataset.endedLabel
+                : card.dataset.activeLabel;
+        }
+    });
+}
+
 // 初期化実行
+updateExhibitionStatuses();
 initWorksToggle();
 initPuzzleProgress();
 initCardboardModal();
